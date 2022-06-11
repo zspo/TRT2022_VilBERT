@@ -53,6 +53,8 @@
 ### 部署优化流程：
 
 ##### 1. 参考vilber_pytorch准备预训练模型及RefCOCO+所需数据
+
+(在参考项目的基础上添加以下脚本及修改部分脚本简化流程)
 ##### 2. 准备评测所需Batch数据
 ```shell
 cd vilbert_pytorch
