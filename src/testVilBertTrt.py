@@ -16,7 +16,7 @@ class InputFeature(object):
     '''
     A single set of features of data.
     '''
-    def __init__(self,features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id):
+    def __init__(self,features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id, vision_logit):
         self.features   = features
         self.spatials  = spatials
         self.image_mask = image_mask
