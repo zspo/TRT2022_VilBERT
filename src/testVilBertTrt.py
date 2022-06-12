@@ -29,12 +29,10 @@ class InputFeature(object):
         self.vision_logit = vision_logit
 
 
-sourceOnnx = f"./vilbert_model_v-logit.onnx"
-onnxSurgeonFile = f"./vilbert_model_v-logit.onnx_surgeon.onnx"
 planFilePath = "./"
 soFileList = glob(planFilePath + "*.so")
 print(soFileList)
-trtFile = f"./vilbert_model_v-logit.onnx.plan"
+trtFile = f"./vilbert_model_v-logit.plan"
 trtScoreFile = "./trtScore.txt"
 input_features = './features_with_logit_res_batch'
 

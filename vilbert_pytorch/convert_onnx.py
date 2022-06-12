@@ -199,18 +199,18 @@ def main():
             )
 
     task_losses = LoadLosses(args, task_cfg, args.tasks.split('-'))
-    model.to(device)
-    if args.local_rank != -1:
-        try:
-            from apex.parallel import DistributedDataParallel as DDP
-        except ImportError:
-            raise ImportError(
-                "Please install apex from https://www.github.com/nvidia/apex to use distributed and fp16 training."
-            )
-        model = DDP(model, delay_allreduce=True)
+#     model.to(device)
+#     if args.local_rank != -1:
+#         try:
+#             from apex.parallel import DistributedDataParallel as DDP
+#         except ImportError:
+#             raise ImportError(
+#                 "Please install apex from https://www.github.com/nvidia/apex to use distributed and fp16 training."
+#             )
+#         model = DDP(model, delay_allreduce=True)
 
-    elif n_gpu > 1:
-        model = nn.DataParallel(model)
+#     elif n_gpu > 1:
+#         model = nn.DataParallel(model)
 
     no_decay = ["bias", "LayerNorm.bias", "LayerNorm.weight"]
 
@@ -230,7 +230,7 @@ def main():
 #             print(batch)
 #             break
             features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id = batch
-            
+            co_attention_mask = None
             
             input_names = ['question','features','spatials','segment_ids','input_mask','image_mask']
             output_names = ['vision_logit']
@@ -247,7 +247,7 @@ def main():
                               input_names=input_names,
                               output_names=output_names,
                               dynamic_axes=dynamic_axes,
-                              opset_version=10)
+                              opset_version=11)
             
             
             break

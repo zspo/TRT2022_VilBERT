@@ -25,7 +25,7 @@
 ├── src
 │   ├── onnx2plan.py                # onnx转plan
 │   ├── onnx_optimize.py            # onnx图优化
-│   └── testVilBertTrt.py           # trt推理评测
+│   └── testVilBertTrt.py           # tensorrt推理评测
 └── vilbert_pytorch
     ├── README.md
     ├── cache_input_features        # 预生成的Batch评测数据路径
@@ -60,28 +60,32 @@
 cd vilbert_pytorch
 python gen_input_batch.py --bert_model bert-base-uncased --from_pretrained save/refcoco+_bert_base_6layer_6conect-pretrained/pytorch_model_19.bin --config_file config/bert_base_6layer_6conect.json --task 4 --batch_size 8
 ```
-##### 3. Pytorch转Onnx
-```shell
-cd vilbert_pytorch
-python convert_onnnx.py --bert_model bert-base-uncased --from_pretrained save/refcoco+_bert_base_6layer_6conect-pretrained/pytorch_model_19.bin --config_file config/bert_base_6layer_6conect.json --task 4 --batch_size 8
-```
-##### 4. Pytorch推理评测
+##### 3. Pytorch推理评测
 ```shell
 cd vilbert_pytorch
 python torch_model_test.py --bert_model bert-base-uncased --from_pretrained save/refcoco+_bert_base_6layer_6conect-pretrained/pytorch_model_19.bin --config_file config/bert_base_6layer_6conect.json --task 4 --batch_size 8
 ```
+##### 4. Pytorch转Onnx
+```shell
+cd vilbert_pytorch
+python convert_onnx.py --bert_model bert-base-uncased --from_pretrained save/refcoco+_bert_base_6layer_6conect-pretrained/pytorch_model_19.bin --config_file config/bert_base_6layer_6conect.json --task 4 --batch_size 8
+```
+##### 5. OnnxRuntime推理评测
+```shell
+cd vilbert_pytorch
+python onnx_test.py
+```
+##### 6. Onnx图优化
 
-##### 5. Onnx图优化
+##### 7. 编译Plugin算子
 
-##### 6. 编译Plugin算子
-
-##### 7. Onnx转Plan
+##### 8. Onnx转Plan
 ```
 cd src
 python onnx2plan.py
 ```
 
-##### 8. Trt推理评测
+##### 9. TensrtRT推理评测
 ```
 cd src
 python testVilBertTrt.py
@@ -90,4 +94,4 @@ python testVilBertTrt.py
 
 ### 性能对比：
 
-##### Reference：
+### Reference：

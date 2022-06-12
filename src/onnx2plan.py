@@ -33,7 +33,7 @@ onnxSurgeonFile = f"./vilbert_model_v-logit.onnx_surgeon.onnx"
 planFilePath = "./"
 soFileList = glob(planFilePath + "*.so")
 print(soFileList)
-trtFile = f"./vilbert_model_v-logit.onnx.plan"
+trtFile = f"./vilbert_model_v-logit.plan"
 
 
 def run():
