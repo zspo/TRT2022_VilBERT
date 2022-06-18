@@ -1601,8 +1601,6 @@ class VILBertForVLTasks(BertPreTrainedModel):
             co_attention_mask,
             output_all_encoded_layers=False,
         )
-
-        vision_logit = 0
         
         vision_logit = self.vision_logit(self.dropout(sequence_output_v)) + ((1.0 - image_attention_mask)* -10000.0).unsqueeze(2).to(dtype=next(self.parameters()).dtype)
 

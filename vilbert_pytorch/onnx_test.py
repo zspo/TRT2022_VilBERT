@@ -10,31 +10,38 @@ class InputFeature(object):
     '''
     A single set of features of data.
     '''
-    def __init__(self,features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id):
-        self.features   = features
-        self.spatials  = spatials
-        self.image_mask = image_mask
-        self.question    = question
-        self.target   = target
-        self.input_mask   = input_mask
-        self.segment_ids   = segment_ids
-        self.co_attention_mask   = co_attention_mask
-        self.question_id   = question_id
+    def __init__(self, features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id, batch_size, vision_logit=None, loss=None, batch_score=None):
+        self.features           = features
+        self.spatials           = spatials
+        self.image_mask         = image_mask
+        self.question           = question
+        self.target             = target
+        self.input_mask         = input_mask
+        self.segment_ids        = segment_ids
+        self.co_attention_mask  = co_attention_mask
+        self.question_id        = question_id
+        self.batch_size         = batch_size
+        self.vision_logit       = vision_logit
+        self.batch_loss         = loss
+        self.batch_score        = batch_score
         
 
-save_input_features_batch = torch.load('cache_input_features/features_with_logit_res_batch')
-for batch in save_input_features_batch:
-    print('features\n', batch.features.shape)
-    print('spatials\n', batch.spatials.shape)
-    print('image_mask\n', batch.image_mask.shape)
-    print('question\n', batch.question.shape)
-    print('target\n', batch.target.shape)
-    print('input_mask\n', batch.input_mask.shape)
-    print('segment_ids\n', batch.segment_ids.shape)
-    print('co_attention_mask\n', batch.co_attention_mask.shape)
-    print('vision_logit\n', batch.vision_logit.shape)
+save_input_features_batch = torch.load('/TRT2022_VilBERT/infer_batch_inputs/save_input_features_with_model_res')
+for input_batch in save_input_features_batch:
+
+    features = input_batch.features
+    spatials = input_batch.spatials
+    image_mask = input_batch.image_mask
+    question = input_batch.question
+    target = input_batch.target
+    input_mask = input_batch.input_mask
+    segment_ids = input_batch.segment_ids
+    co_attention_mask = input_batch.co_attention_mask
+    question_id = input_batch.question_id
+    batch_size = input_batch.batch_size
     print('='*50)
-#     break
+    print('batch size: ', batch_size)
+    break
     
     
 def check(a, b, weak=False, info=""):  # 用于比较 TF 和 TRT 的输出结果
@@ -46,74 +53,89 @@ def check(a, b, weak=False, info=""):  # 用于比较 TF 和 TRT 的输出结果
     diff0 = np.max(np.abs(a - b))
     diff1 = np.max(np.abs(a - b) / (np.abs(b) + epsilon))
     print("check %s:" % info, res, diff0, diff1)
-    
+
+
+def eval_logit(vision_logit, target):
+    loss_func = nn.BCEWithLogitsLoss(reduction='mean')
+    loss = loss_func(vision_logit, target)
+    loss = loss.mean() * target.size(1)
+    _, select_idx = torch.max(vision_logit, dim=1)
+    select_target = target.squeeze(2).gather(1, select_idx.view(-1,1))
+    batch_score = torch.sum(select_target>0.5).item()
+    return float(loss), float(batch_score)
     
 import onnx
 import onnxruntime
 
 
-onxx_model_path = r'./vilbert_model_v-logit.onnx'
+onxx_model_path = '/TRT2022_VilBERT/models/vilbert_model_vision_logit.onnx'
 options = onnxruntime.SessionOptions()
 # options.graph_optimization_level = onnxruntime.GraphOptimizationLevel.ORT_ENABLE_EXTENDED
-session = onnxruntime.InferenceSession(onxx_model_path, options)
+session = onnxruntime.InferenceSession(onxx_model_path, options, providers=['CUDAExecutionProvider'])
 print('load onnx done')
 
 input_name = session.get_inputs()
 output_name = session.get_outputs() # [0].name
 print('input_name: ')
 for n in input_name:
-    print(n.name)
+    print(n.name, n.shape)
     
 print('output_name: ')
 for n in output_name:
-    print(n.name)
-    print(n.shape)
+    print(n.name, n.shape)
 
-    
-loss_func = nn.BCEWithLogitsLoss(reduction='mean')
-result = []
-eval_start_time = time.time()
-for batch in save_input_features_batch:
-    
-    inputs = {'question':  batch.question.numpy(),
-              'features': batch.features.numpy(),
-              'spatials': batch.spatials.numpy(),
-              'segment_ids': batch.segment_ids.numpy(),
-              'input_mask': batch.input_mask.numpy(),
-              'image_mask': batch.image_mask.numpy(),
-#               'co_attention_mask': batch.co_attention_mask.numpy()
-             }
-    print('='*50)
-    print('batch size: ', batch.question.shape[0])
 
-    # (batch.question,batch.features,batch.spatials,batch.segment_ids,batch.input_mask,batch.image_mask,batch.co_attention_mask)
-    vision_logit = session.run(['4240'], inputs)[0]
-    
-    print(vision_logit.shape)
-    
-    torch_output_vision_logit = batch.vision_logit.numpy()
-    
-    check(torch_output_vision_logit, vision_logit, True)
-    
-    
-    
-#     vision_logit = torch.from_numpy(vision_logit)
-#     target = batch.target
-#     loss = loss_func(vision_logit, target)
-#     loss = loss.mean() * target.size(1)
-#     _, select_idx = torch.max(vision_logit, dim=1)
-#     select_target = target.squeeze(2).gather(1, select_idx.view(-1,1))
-#     batch_score = torch.sum(select_target>0.5).item()
-#     print(float(loss), float(batch_score))
-    
-#     result.append(res[0])
-#     break
-# result = np.concatenate(result)
-# eval_end_time = time.time()
-# eval_duration_time = eval_end_time - eval_start_time
-# print()
-# print("Evaluate total time (seconds): {0:.4f}".format(eval_duration_time))
-# print("Evaluate avg time (seconds): {0:.4f}".format(eval_duration_time / len(save_input_features_batch_8)))
+with open('/TRT2022_VilBERT/scores/vilbert_onnxruntime_infer_time.txt', 'w') as fw:
+    for input_batch in save_input_features_batch:
+
+        features = input_batch.features
+        spatials = input_batch.spatials
+        image_mask = input_batch.image_mask
+        question = input_batch.question
+        target = input_batch.target
+        input_mask = input_batch.input_mask
+        segment_ids = input_batch.segment_ids
+        co_attention_mask = input_batch.co_attention_mask
+        question_id = input_batch.question_id
+        batch_size = input_batch.batch_size
+        vision_logit = input_batch.vision_logit
+        batch_loss = input_batch.batch_loss
+        batch_score = input_batch.batch_score
+        
+        inputs = {'question': question.numpy(),
+                'features': features.numpy(),
+                'spatials': spatials.numpy(),
+                'segment_ids': segment_ids.numpy(),
+                'input_mask': input_mask.numpy(),
+                'image_mask': image_mask.numpy(),
+                }
+        print('='*50)
+        print('batch size: ', batch_size)
+
+        onnx_vision_logit = session.run(['vision_logit'], inputs)[0]
+        
+        vision_logit = vision_logit.cpu().numpy()
+        
+        check(onnx_vision_logit, vision_logit, True)
+
+        onnx_vision_logit = torch.from_numpy(onnx_vision_logit)
+
+        onnx_batch_loss, onnx_batch_score = eval_logit(onnx_vision_logit, target)
+        
+        t0 = time.time()
+        for i in range(30):
+            _ = session.run(['vision_logit'], inputs)
+        t1 = time.time()
+        timePerInference = (t1 - t0) * 1000 /30
+        
+        fw.write('='*50 + '\n')
+        fw.write('batch_size: {},\ttimePerInference: {:.4f},\tbatch_loss: {:.4f},\tbatch_score: {:.4f}\n'.format(\
+                    batch_size, timePerInference, onnx_batch_loss, onnx_batch_score))
+        
+
+
+
+
 
 
 

@@ -340,15 +340,12 @@ def compute_score_with_logits(logits, labels):
     return scores
 
 def EvaluatingModel(args, task_cfg, device, task_id, batch, model, task_losses, results, others):
-#     batch = tuple(t.cuda(device=device, non_blocking=True) for t in batch)
+    batch = tuple(t.cuda(device=device, non_blocking=True) for t in batch)
     features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id = batch
     batch_size = features.size(0)
 
     with torch.no_grad():
-        vil_prediction, vil_logit, vil_binary_prediction, vision_prediction, vision_logit, linguisic_prediction, linguisic_logit \
-            = model(question, features, spatials, segment_ids, input_mask, image_mask, co_attention_mask)
-    
-    print(vision_logit.shape)
+        vision_logit = model(question, features, spatials, segment_ids, input_mask, image_mask)
     
     if task_cfg[task_id]['type'] == 'V-logit':
         loss = task_losses[task_id](vision_logit, target)

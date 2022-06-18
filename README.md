@@ -17,24 +17,23 @@
 ```shell
 .
 ├── README.md
+├── infer_batch_inputs              # 推理测试所需的batch输入及torch模型的target、logit、batch_loss、batch_score
 ├── models
 │   └── readme.md                   # onnx 及 trt plan存放路径
 ├── plugins
 │   └── LayerNormPlugin             # trt plugin路径
 ├── scores                          # 评测结果存放路径
+├── script                          # 运行shell脚本
 ├── src
 │   ├── onnx2plan.py                # onnx转plan
 │   ├── onnx_optimize.py            # onnx图优化
 │   └── testVilBertTrt.py           # tensorrt推理评测
 └── vilbert_pytorch
     ├── README.md
-    ├── cache_input_features        # 预生成的Batch评测数据路径
     ├── config                      # 模型配置
     ├── convert_onnx.py             # torch模型转onnx
     ├── data                        # 原始数据
-    ├── eval_retrieval.py
     ├── eval_tasks.py
-    ├── fig
     ├── gen_input_batch.py          # 产出Batch评测数据
     ├── onnx_test.py                # onnx推理评测
     ├── requirements.txt
@@ -42,9 +41,6 @@
     ├── script
     ├── tools
     ├── torch_model_test.py         # torch模型推理评测
-    ├── train_baseline.py
-    ├── train_concap.py
-    ├── train_tasks.py
     ├── vilbert
     └── vlbert_tasks.yml
 ```
@@ -57,38 +53,32 @@
 (在参考项目的基础上添加以下脚本及修改部分脚本简化流程)
 ##### 2. 准备评测所需Batch数据
 ```shell
-cd vilbert_pytorch
-python gen_input_batch.py --bert_model bert-base-uncased --from_pretrained save/refcoco+_bert_base_6layer_6conect-pretrained/pytorch_model_19.bin --config_file config/bert_base_6layer_6conect.json --task 4 --batch_size 8
+sh script/gen_inputs.sh
 ```
 ##### 3. Pytorch推理评测
 ```shell
-cd vilbert_pytorch
-python torch_model_test.py --bert_model bert-base-uncased --from_pretrained save/refcoco+_bert_base_6layer_6conect-pretrained/pytorch_model_19.bin --config_file config/bert_base_6layer_6conect.json --task 4 --batch_size 8
+sh script/torch_infer.sh
 ```
 ##### 4. Pytorch转Onnx
 ```shell
-cd vilbert_pytorch
-python convert_onnx.py --bert_model bert-base-uncased --from_pretrained save/refcoco+_bert_base_6layer_6conect-pretrained/pytorch_model_19.bin --config_file config/bert_base_6layer_6conect.json --task 4 --batch_size 8
+sh script/torch2onnx.sh
 ```
 ##### 5. OnnxRuntime推理评测
 ```shell
-cd vilbert_pytorch
-python onnx_test.py
+sh script/onnxruntime_infer.sh
 ```
 ##### 6. Onnx图优化
 
 ##### 7. 编译Plugin算子
 
 ##### 8. Onnx转Plan
-```
-cd src
-python onnx2plan.py
+```shell
+sh script/onnx2plan.sh
 ```
 
-##### 9. TensrtRT推理评测
-```
-cd src
-python testVilBertTrt.py
+##### 9. TensortRT推理评测
+```shell
+sh script/tensorrt_infer.sh
 ```
 
 ### 优化细节：
@@ -100,12 +90,12 @@ python testVilBertTrt.py
 
 | BatchSize | Pytorch(C) | Pytorch(G) | OnnxRuntime(G) | TensorRT | TensorRT(Opt) |
 | --------- | ---------  | ---------  | -------------  | -------  | ------------  |
-| 8         | 417.57     |            |                | 10.49    |               |
-| 16        | 984.57     |            |                | 19.14    |               |
-| 32        | 1508.12    |            |                | 34.43    |               |
-| 64        | 2553.40    |            |                | 67.11    |               |
-| 128       |            |            |                | 129.72   |               |
-| 256       |            |            |                |          |               |
+| 8         | 417.57     | 25.33      | 11.31          | 8.70     |               |
+| 16        | 984.57     | 31.85      | 21.35          | 16.44    |               |
+| 32        | 1508.12    | 55.17      | 38.42          | 28.47    |               |
+| 64        | 2553.40    | 106.70     | 75.61          | 54.88    |               |
+| 128       | **         | 214.04     | 149.27         | 106.12   |               |
+| 256       | **         | 428.90     | 299.14         | 213.98   |               |
 
 
 ### Reference：

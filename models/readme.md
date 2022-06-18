@@ -1,3 +1,0 @@
-torch model
-onnx
-plan

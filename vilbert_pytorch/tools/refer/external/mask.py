@@ -1,6 +1,7 @@
 __author__ = 'tsungyi'
 
 import tools.refer.external._mask as _mask
+# import ._mask as _mask
 
 # Interface for manipulating masks stored in RLE format.
 #

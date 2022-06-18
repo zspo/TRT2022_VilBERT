@@ -31,20 +31,26 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+
+
 class InputFeature(object):
     '''
     A single set of features of data.
     '''
-    def __init__(self,features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id):
-        self.features   = features
-        self.spatials  = spatials
-        self.image_mask = image_mask
-        self.question    = question
-        self.target   = target
-        self.input_mask   = input_mask
-        self.segment_ids   = segment_ids
-        self.co_attention_mask   = co_attention_mask
-        self.question_id   = question_id
+    def __init__(self, features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id, batch_size, vision_logit=None, loss=None, batch_score=None):
+        self.features           = features
+        self.spatials           = spatials
+        self.image_mask         = image_mask
+        self.question           = question
+        self.target             = target
+        self.input_mask         = input_mask
+        self.segment_ids        = segment_ids
+        self.co_attention_mask  = co_attention_mask
+        self.question_id        = question_id
+        self.batch_size         = batch_size
+        self.vision_logit       = vision_logit
+        self.batch_loss         = loss
+        self.batch_score        = batch_score
         
 
 def main():
@@ -178,16 +184,7 @@ def main():
     else:
         default_gpu = True
 
-    if default_gpu and not os.path.exists(savePath):
-        os.makedirs(savePath)
-    
-    logger.info('load datasets')
-    task_batch_size, task_num_iters, task_ids, task_datasets_val, task_dataloader_val \
-                        = LoadDatasetEval(args, task_cfg, args.tasks.split('-'))
-
-    tbLogger = utils.tbLogger(timeStamp, savePath, task_names, task_ids, task_num_iters, 1, save_logger=False, txt_name='eval.txt')
-
-    num_labels = max([dataset.num_labels for dataset in task_datasets_val.values()])
+    num_labels = 1
 
     if args.baseline:
         model = BaseBertForVLTasks.from_pretrained(
@@ -199,60 +196,46 @@ def main():
             )
 
     task_losses = LoadLosses(args, task_cfg, args.tasks.split('-'))
-#     model.to(device)
-#     if args.local_rank != -1:
-#         try:
-#             from apex.parallel import DistributedDataParallel as DDP
-#         except ImportError:
-#             raise ImportError(
-#                 "Please install apex from https://www.github.com/nvidia/apex to use distributed and fp16 training."
-#             )
-#         model = DDP(model, delay_allreduce=True)
-
-#     elif n_gpu > 1:
-#         model = nn.DataParallel(model)
-
-    no_decay = ["bias", "LayerNorm.bias", "LayerNorm.weight"]
-
-    print("  Num Iters: ", task_num_iters)
-    print("  Batch size: ", task_batch_size)    
-
+    # model.to(device)
     model.eval()
-    
-    print(model)
+
+    save_input_features_batch = torch.load('/TRT2022_VilBERT/infer_batch_inputs/save_input_features_with_model_res')
+    for input_batch in save_input_features_batch:
+
+        features = input_batch.features
+        spatials = input_batch.spatials
+        image_mask = input_batch.image_mask
+        question = input_batch.question
+        target = input_batch.target
+        input_mask = input_batch.input_mask
+        segment_ids = input_batch.segment_ids
+        co_attention_mask = input_batch.co_attention_mask
+        question_id = input_batch.question_id
+        batch_size = input_batch.batch_size
+        print('='*50)
+        print('batch size: ', batch_size)
+
+        input_names = ['question','features','spatials','segment_ids','input_mask','image_mask']
+        output_names = ['vision_logit']
+        dynamic_axes = {'question': {0:'batch_size'},
+                        'features': {0:'batch_size'},
+                        'spatials': {0:'batch_size'},
+                        'segment_ids': {0:'batch_size'},
+                        'input_mask': {0:'batch_size'},
+                        'image_mask': {0:'batch_size'},
+                        'vision_logit': {0:'batch_size'}}
+
+        torch.onnx.export(model,
+                            f='/TRT2022_VilBERT/models/vilbert_model_vision_logit.onnx',
+                            args=(question,features,spatials,segment_ids,input_mask,image_mask),
+                            input_names=input_names,
+                            output_names=output_names,
+                            dynamic_axes=dynamic_axes,
+                            opset_version=11)
+
+        break
 
 
-    for task_id in task_ids:
-        results = []
-        others = []
-        save_input_features = []
-        for i, batch in enumerate(task_dataloader_val[task_id]):
-#             print(batch)
-#             break
-            features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id = batch
-            co_attention_mask = None
-            
-            input_names = ['question','features','spatials','segment_ids','input_mask','image_mask']
-            output_names = ['vision_logit']
-            dynamic_axes = {'question': {0:'batch_size'},
-                            'features': {0:'batch_size'},
-                            'spatials': {0:'batch_size'},
-                            'segment_ids': {0:'batch_size'},
-                            'input_mask': {0:'batch_size'},
-                            'image_mask': {0:'batch_size'},
-                            'vision_logit': {0:'batch_size'}}
-            torch.onnx.export(model,
-                              f='./vilbert_model_v-logit_new.onnx',
-                              args=(question,features,spatials,segment_ids,input_mask,image_mask),
-                              input_names=input_names,
-                              output_names=output_names,
-                              dynamic_axes=dynamic_axes,
-                              opset_version=11)
-            
-            
-            break
-            
-            
 if __name__ == "__main__":
 
     main()

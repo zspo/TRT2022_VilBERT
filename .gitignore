@@ -129,5 +129,10 @@ dmypy.json
 .pyre/
 
 
+models/*.bin
 models/*.onnx
 models/*.plan
+
+vilbert_pytorch/data/referExpression/
+
+infer_batch_inputs/save_input_*

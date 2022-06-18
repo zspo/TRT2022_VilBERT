@@ -22,18 +22,17 @@ from glob import glob
 import ctypes
 import numpy as np
 import onnx
-import onnxoptimizer
+# import onnxoptimizer
 import onnx_graphsurgeon as gs
 import tensorrt as trt
 
 
-sourceOnnx = f"./vilbert_model_v-logit.onnx"
-onnxSurgeonFile = f"./vilbert_model_v-logit.onnx_surgeon.onnx"
-# soFile = "./LayerNorm.so"
+sourceOnnx = "/TRT2022_VilBERT/models/vilbert_model_vision_logit.onnx"
+onnxSurgeonFile = "/TRT2022_VilBERT/models/vilbert_model_vision_logit_optimizer.onnx"
 planFilePath = "./"
 soFileList = glob(planFilePath + "*.so")
 print(soFileList)
-trtFile = f"./vilbert_model_v-logit.plan"
+trtFile = "/TRT2022_VilBERT/models/vilbert_model_vision_logit.plan"
 
 
 def run():
@@ -51,7 +50,7 @@ def run():
     network = builder.create_network(1 << int(trt.NetworkDefinitionCreationFlag.EXPLICIT_BATCH))
     profile = builder.create_optimization_profile()
     config = builder.create_builder_config()
-    config.max_workspace_size = 6 << 30
+    config.max_workspace_size = 12 << 30
     # config.flags = 1 << int(trt.BuilderFlag.FP16)
     # config.flags = config.flags | 1<<int(trt.BuilderFlag.STRICT_TYPES)
 
@@ -81,7 +80,6 @@ def run():
     profile.set_shape('segment_ids', [1, 20], [16, 20], [256, 20])
     profile.set_shape('input_mask', [1, 20], [16, 20], [256, 20])
     profile.set_shape('image_mask', [1, 100], [16, 100], [256, 100])
-    # profile.set_shape('co_attention_mask', [1, 100, 20], [16, 100, 20], [256, 100, 20])
 
     config.add_optimization_profile(profile)
     engineString = builder.build_serialized_network(network, config)

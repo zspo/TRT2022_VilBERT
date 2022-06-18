@@ -32,21 +32,26 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+
+
 class InputFeature(object):
     '''
     A single set of features of data.
     '''
-    def __init__(self,features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id):
-        self.features   = features
-        self.spatials  = spatials
-        self.image_mask = image_mask
-        self.question    = question
-        self.target   = target
-        self.input_mask   = input_mask
-        self.segment_ids   = segment_ids
-        self.co_attention_mask   = co_attention_mask
-        self.question_id   = question_id
-        self.vision_logit = None
+    def __init__(self, features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id, batch_size, vision_logit=None, loss=None, batch_score=None):
+        self.features           = features
+        self.spatials           = spatials
+        self.image_mask         = image_mask
+        self.question           = question
+        self.target             = target
+        self.input_mask         = input_mask
+        self.segment_ids        = segment_ids
+        self.co_attention_mask  = co_attention_mask
+        self.question_id        = question_id
+        self.batch_size         = batch_size
+        self.vision_logit       = vision_logit
+        self.batch_loss         = loss
+        self.batch_score        = batch_score
         
 
 def main():
@@ -180,9 +185,6 @@ def main():
     else:
         default_gpu = True
 
-    if default_gpu and not os.path.exists(savePath):
-        os.makedirs(savePath)
-
     num_labels = 1
 
     if args.baseline:
@@ -196,74 +198,48 @@ def main():
 
     task_losses = LoadLosses(args, task_cfg, args.tasks.split('-'))
     model.to(device)
-    if args.local_rank != -1:
-        try:
-            from apex.parallel import DistributedDataParallel as DDP
-        except ImportError:
-            raise ImportError(
-                "Please install apex from https://www.github.com/nvidia/apex to use distributed and fp16 training."
-            )
-        model = DDP(model, delay_allreduce=True)
-
-    elif n_gpu > 1:
-        model = nn.DataParallel(model)
-
-    no_decay = ["bias", "LayerNorm.bias", "LayerNorm.weight"]
-
     model.eval()
-    
-#     print(model)
 
     task_id = 'TASK4'
     
-#     features_with_logit_res_batch = []
-    
-    save_input_features_batch = torch.load('cache_input_features/save_input_features_batch_all')
-    for input_batch in save_input_features_batch:
-        
-        features = input_batch.features
-        spatials = input_batch.spatials
-        image_mask = input_batch.image_mask
-        question = input_batch.question
-        target = input_batch.target
-        input_mask = input_batch.input_mask
-        segment_ids = input_batch.segment_ids
-        co_attention_mask = None
-        question_id = input_batch.question_id
-        print('='*50)
-        print('batch size: ', features.shape[0])
+    with open('/TRT2022_VilBERT/scores/vilbert_pytorch_infer_time.txt', 'w') as fw:
 
-        with torch.no_grad():
-            # warm up
-            for i in range(2):
-#                 vil_prediction, vil_logit, vil_binary_prediction, vision_prediction, vision_logit, linguisic_prediction, linguisic_logit \
-#                     = model(question, features, spatials, segment_ids, input_mask, image_mask, co_attention_mask)
-                vision_logit = model(question, features, spatials, segment_ids, input_mask, image_mask, co_attention_mask)
-            
-            t0 = time.time()
-            for i in range(30):
-                vision_logit = model(question, features, spatials, segment_ids, input_mask, image_mask, co_attention_mask)
-            t1 = time.time()
-            timePerInference = (t1-t0) * 1000 /30
-            
-        print(f'{features.shape[0]}\t{timePerInference}\t')
-        
-#         results = []
-#         others = []
-        
-#         batch = (features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id)
+        save_input_features_batch = torch.load('/TRT2022_VilBERT/infer_batch_inputs/save_input_features_with_model_res')
+        for input_batch in save_input_features_batch:
 
+            features = input_batch.features
+            spatials = input_batch.spatials
+            image_mask = input_batch.image_mask
+            question = input_batch.question
+            target = input_batch.target
+            input_mask = input_batch.input_mask
+            segment_ids = input_batch.segment_ids
+            co_attention_mask = input_batch.co_attention_mask
+            question_id = input_batch.question_id
+            batch_size = input_batch.batch_size
+            print('='*50)
+            print('batch size: ', batch_size)
 
-#         loss, score, batch_size, results, others, vision_logit = EvaluatingModel(args, task_cfg, device, \
-#                 task_id, batch, model, task_losses, results, others)
-        
-#         input_batch.vision_logit = vision_logit
-#         features_with_logit_res_batch.append(input_batch)
-            
-#         print(i, float(loss), float(score), batch_size)
-        
-#     torch.save(features_with_logit_res_batch, './cache_input_features/features_with_logit_res_batch')
-#     print('save done')
+            batch = (features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id)
+            batch = tuple(t.cuda(device=device, non_blocking=True) for t in batch)
+            features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id = batch
+
+            with torch.no_grad():
+                # warm up
+                for i in range(2):
+                    vision_logit = model(question, features, spatials, segment_ids, input_mask, image_mask)
+                
+                t0 = time.time()
+                for i in range(30):
+                    vision_logit = model(question, features, spatials, segment_ids, input_mask, image_mask)
+                t1 = time.time()
+                timePerInference = (t1 - t0) * 1000 /30
+                
+            print(f'{batch_size}\t{timePerInference}\t')
+
+            fw.write('='*50 + '\n')
+            fw.write('batch_size: {},\ttimePerInference: {:.4f},\tbatch_loss: {:.4f},\tbatch_score: {:.4f}\n'.format(\
+                     batch_size, timePerInference, input_batch.batch_loss, input_batch.batch_score))
 
 if __name__ == "__main__":
 

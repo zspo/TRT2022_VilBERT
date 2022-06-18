@@ -31,21 +31,26 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+
 class InputFeature(object):
     '''
     A single set of features of data.
     '''
-    def __init__(self,features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id):
-        self.features   = features
-        self.spatials  = spatials
-        self.image_mask = image_mask
-        self.question    = question
-        self.target   = target
-        self.input_mask   = input_mask
-        self.segment_ids   = segment_ids
-        self.co_attention_mask   = co_attention_mask
-        self.question_id   = question_id
-        
+    def __init__(self, features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id, batch_size, vision_logit=None, loss=None, batch_score=None):
+        self.features           = features
+        self.spatials           = spatials
+        self.image_mask         = image_mask
+        self.question           = question
+        self.target             = target
+        self.input_mask         = input_mask
+        self.segment_ids        = segment_ids
+        self.co_attention_mask  = co_attention_mask
+        self.question_id        = question_id
+        self.batch_size         = batch_size
+        self.vision_logit       = vision_logit
+        self.batch_loss         = loss
+        self.batch_score        = batch_score
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -162,7 +167,7 @@ def main():
         torch.cuda.set_device(args.local_rank)
         device = torch.device("cuda", args.local_rank)
         n_gpu = 1
-        torch.distributed.init_process_group(backend="nccl")
+        # torch.distributed.init_process_group(backend="nccl")
     
     logger.info(
         "device: {} n_gpu: {}, distributed training: {}, 16-bits training: {}".format(
@@ -178,38 +183,79 @@ def main():
     else:
         default_gpu = True
 
-    if default_gpu and not os.path.exists(savePath):
-        os.makedirs(savePath)
-    
-    
-    save_input_features = []
+    num_labels = 1
+    model = VILBertForVLTasks.from_pretrained(
+            args.from_pretrained, config, num_labels=num_labels, default_gpu=default_gpu
+            )
+    model.to(device)
+    model.eval()
+    task_losses = LoadLosses(args, task_cfg, args.tasks.split('-'))
 
-    for batch_size in [8, 16, 32, 64, 128, 256]:
-        print(batch_size)
-        args.batch_size = batch_size
-        print(args.batch_size)
-        logger.info('load datasets')
-        task_batch_size, task_num_iters, task_ids, task_datasets_val, task_dataloader_val \
-                            = LoadDatasetEval(args, task_cfg, args.tasks.split('-'))
 
-        tbLogger = utils.tbLogger(timeStamp, savePath, task_names, task_ids, task_num_iters, 1, save_logger=False, txt_name='eval.txt')
+    use_raw_data = False
 
-        num_labels = max([dataset.num_labels for dataset in task_datasets_val.values()])
-        
-        task_id = task_ids[0]
-        print('task_id: ', task_id)
-
-        for i, batch in enumerate(task_dataloader_val[task_id]):
-            features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id = batch
+    if use_raw_data:
+        save_input_features = []
+        for batch_size in [8, 16, 32, 64, 128, 256]:
+            print(batch_size)
+            args.batch_size = batch_size
+            print(args.batch_size)
+            logger.info('load datasets')
+            task_batch_size, task_num_iters, task_ids, task_datasets_val, task_dataloader_val \
+                                = LoadDatasetEval(args, task_cfg, args.tasks.split('-'))
             
-            tmp_feature = InputFeature(features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id)
-            
-            break
-            
-        save_input_features.append(tmp_feature)
+            task_id = task_ids[0]
+            print('task_id: ', task_id)
 
-    torch.save(save_input_features, './cache_input_features/save_input_features_batch_all')
-    print('save done')
+            for i, batch in enumerate(task_dataloader_val[task_id]):
+                features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id = batch
+
+                results, others = [], []
+                loss, score, batch_size, results, others, vision_logit = EvaluatingModel(args, task_cfg, device, \
+                        task_id, batch, model, task_losses, results, others)
+
+                tmp_feature = InputFeature(features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id, batch_size, vision_logit, loss, score)
+
+                print(f'batch_size: {batch_size}\t, loss: {loss}\t, score: {score}\t')
+                break
+                
+            save_input_features.append(tmp_feature)
+
+        torch.save(save_input_features, '/TRT2022_VilBERT/infer_batch_inputs/save_input_features_batch_all')
+        print('save done')
+    else:
+        save_input_features_with_model_res = []
+        save_input_features_batch = torch.load('/TRT2022_VilBERT/infer_batch_inputs/save_input_features_batch_all')
+        for input_batch in save_input_features_batch:
+            
+            features = input_batch.features
+            spatials = input_batch.spatials
+            image_mask = input_batch.image_mask
+            question = input_batch.question
+            target = input_batch.target
+            input_mask = input_batch.input_mask
+            segment_ids = input_batch.segment_ids
+            co_attention_mask = input_batch.co_attention_mask
+            question_id = input_batch.question_id
+            batch_size = input_batch.batch_size
+            print('='*50)
+            print('batch size: ', batch_size)
+
+            task_id = 'TASK4'
+            batch = (features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id)
+            results, others = [], []
+            loss, score, batch_size, results, others, vision_logit = EvaluatingModel(args, task_cfg, device, \
+                    task_id, batch, model, task_losses, results, others)
+
+            tmp_feature = InputFeature(features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id, batch_size, vision_logit, loss, score)
+
+            print(f'batch_size: {batch_size},\t loss: {loss},\t score: {score}')
+
+            save_input_features_with_model_res.append(tmp_feature)
+        torch.save(save_input_features_with_model_res, '/TRT2022_VilBERT/infer_batch_inputs/save_input_features_with_model_res')
+        print('save done')
+
+
 
 
 if __name__ == "__main__":
