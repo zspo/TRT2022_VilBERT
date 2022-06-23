@@ -12,8 +12,17 @@ import onnx
 import onnx_graphsurgeon as gs
 
 
+import argparse
+parser = argparse.ArgumentParser()
+
+parser.add_argument("--onnxSurgeonFile", default="vilbert_model_vision_logit_layernorm.onnx", type=str)
+args = parser.parse_args()
+
+
+models_path = "/TRT2022_VilBERT/models/"
+
 sourceOnnx = "/TRT2022_VilBERT/models/vilbert_model_vision_logit.onnx"
-onnxSurgeonFile = "/TRT2022_VilBERT/models/vilbert_model_vision_logit_layernorm.onnx"
+onnxSurgeonFile = os.path.join(models_path, args.onnxSurgeonFile)
 
 
 def reBuildGraph():
@@ -24,27 +33,31 @@ def reBuildGraph():
 
     if bLayerNormPlugin:
         for node in graph.nodes:
-            if node.op == 'ReduceMean' and \
-                node.o().op == 'Sub' and node.o().inputs[0] == node.inputs[0] and \
-                node.o().o(0).op =='Pow' and node.o().o(1).op =='Div' and \
-                node.o().o(0).o().op == 'ReduceMean' and \
-                node.o().o(0).o().o().op == 'Add' and \
-                node.o().o(0).o().o().o().op == 'Sqrt' and \
-                node.o().o(0).o().o().o().o().op == 'Div' and node.o().o(0).o().o().o().o() == node.o().o(1):
+            try:
+                if node.op == 'ReduceMean' and \
+                    node.o().op == 'Sub' and node.o().inputs[0] == node.inputs[0] and \
+                    node.o().o(0).op =='Pow' and node.o().o(1).op =='Div' and \
+                    node.o().o(0).o().op == 'ReduceMean' and \
+                    node.o().o(0).o().o().op == 'Add' and \
+                    node.o().o(0).o().o().o().op == 'Sqrt' and \
+                    node.o().o(0).o().o().o().o().op == 'Div' and node.o().o(0).o().o().o().o() == node.o().o(1):
 
-                inputTensor = node.inputs[0]
-                lastDivNode = node.o().o(0).o().o().o().o()
+                    inputTensor = node.inputs[0]
+                    lastDivNode = node.o().o(0).o().o().o().o()
 
-                layerNormN = gs.Node("LayerNorm", "LayerNormN-" + str(nLayerNormPlugin), 
-                                     inputs=[inputTensor],
-                                     outputs=[lastDivNode.outputs[0]],
-                                     )
-                # attrs={"epsilon": node.o().o(0).o().o().i(1).attrs['value'].values.reshape(1)}
-                graph.nodes.append(layerNormN)
-                nLayerNormPlugin += 1
+                    layerNormN = gs.Node("LayerNorm", "LayerNorm-" + str(nLayerNormPlugin), 
+                                        inputs=[inputTensor],
+                                        outputs=[lastDivNode.outputs[0]],
+                                        )
+                    # attrs={"epsilon": node.o().o(0).o().o().i(1).attrs['value'].values.reshape(1)}
+                    graph.nodes.append(layerNormN)
+                    nLayerNormPlugin += 1
 
-                lastDivNode.outputs = []
-                continue
+                    lastDivNode.outputs = []
+                    continue
+            except:
+                print(node)
+                break
             
         graph.cleanup()
 

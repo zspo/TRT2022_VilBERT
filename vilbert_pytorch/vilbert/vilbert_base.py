@@ -311,7 +311,7 @@ class BertEmbeddings(nn.Module):
 
         # self.LayerNorm is not snake-cased to stick with TensorFlow model variable name and be able to load
         # any TensorFlow checkpoint file
-        self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=1e-5)
+        self.LayerNorm = BertLayerNorm(config.hidden_size, eps=1e-12)
         self.dropout = nn.Dropout(config.hidden_dropout_prob)
 
     def forward(self, input_ids, token_type_ids=None):
@@ -392,7 +392,7 @@ class BertSelfOutput(nn.Module):
     def __init__(self, config):
         super(BertSelfOutput, self).__init__()
         self.dense = nn.Linear(config.hidden_size, config.hidden_size)
-        self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=1e-5)
+        self.LayerNorm = BertLayerNorm(config.hidden_size, eps=1e-12)
         self.dropout = nn.Dropout(config.hidden_dropout_prob)
 
     def forward(self, hidden_states, input_tensor):
@@ -435,7 +435,7 @@ class BertOutput(nn.Module):
     def __init__(self, config):
         super(BertOutput, self).__init__()
         self.dense = nn.Linear(config.intermediate_size, config.hidden_size)
-        self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=1e-5)
+        self.LayerNorm = BertLayerNorm(config.hidden_size, eps=1e-12)
         self.dropout = nn.Dropout(config.hidden_dropout_prob)
 
     def forward(self, hidden_states, input_tensor):
@@ -520,8 +520,7 @@ class BertImageSelfOutput(nn.Module):
     def __init__(self, config):
         super(BertImageSelfOutput, self).__init__()
         self.dense = nn.Linear(config.v_hidden_size, config.v_hidden_size)
-        # self.LayerNorm = BertLayerNorm(config.v_hidden_size, eps=1e-12)
-        self.LayerNorm = nn.LayerNorm(config.v_hidden_size, eps=1e-5)
+        self.LayerNorm = BertLayerNorm(config.v_hidden_size, eps=1e-12)
         self.dropout = nn.Dropout(config.v_hidden_dropout_prob)
 
     def forward(self, hidden_states, input_tensor):
@@ -563,8 +562,7 @@ class BertImageOutput(nn.Module):
     def __init__(self, config):
         super(BertImageOutput, self).__init__()
         self.dense = nn.Linear(config.v_intermediate_size, config.v_hidden_size)
-        # self.LayerNorm = BertLayerNorm(config.v_hidden_size, eps=1e-12)
-        self.LayerNorm = nn.LayerNorm(config.v_hidden_size, eps=1e-5)
+        self.LayerNorm = BertLayerNorm(config.v_hidden_size, eps=1e-12)
         self.dropout = nn.Dropout(config.v_hidden_dropout_prob)
 
     def forward(self, hidden_states, input_tensor):
@@ -701,16 +699,14 @@ class BertBiOutput(nn.Module):
         super(BertBiOutput, self).__init__()
 
         self.dense1 = nn.Linear(config.bi_hidden_size, config.v_hidden_size)
-        # self.LayerNorm1 = BertLayerNorm(config.v_hidden_size, eps=1e-12)
-        self.LayerNorm1 = nn.LayerNorm(config.v_hidden_size, eps=1e-5)
+        self.LayerNorm1 = BertLayerNorm(config.v_hidden_size, eps=1e-12)
         self.dropout1 = nn.Dropout(config.v_hidden_dropout_prob)
 
         self.q_dense1 = nn.Linear(config.bi_hidden_size, config.v_hidden_size)
         self.q_dropout1 = nn.Dropout(config.v_hidden_dropout_prob)
 
         self.dense2 = nn.Linear(config.bi_hidden_size, config.hidden_size)
-        # self.LayerNorm2 = BertLayerNorm(config.hidden_size, eps=1e-12)
-        self.LayerNorm2 = nn.LayerNorm(config.hidden_size, eps=1e-5)
+        self.LayerNorm2 = BertLayerNorm(config.hidden_size, eps=1e-12)
         self.dropout2 = nn.Dropout(config.hidden_dropout_prob)
 
         self.q_dense2 = nn.Linear(config.bi_hidden_size, config.hidden_size)
@@ -939,7 +935,7 @@ class BertPredictionHeadTransform(nn.Module):
             self.transform_act_fn = ACT2FN[config.hidden_act]
         else:
             self.transform_act_fn = config.hidden_act
-        self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=1e-5)
+        self.LayerNorm = BertLayerNorm(config.hidden_size, eps=1e-12)
 
     def forward(self, hidden_states):
         hidden_states = self.dense(hidden_states)
@@ -958,8 +954,7 @@ class BertImgPredictionHeadTransform(nn.Module):
             self.transform_act_fn = ACT2FN[config.hidden_act]
         else:
             self.transform_act_fn = config.v_hidden_act
-        # self.LayerNorm = BertLayerNorm(config.v_hidden_size, eps=1e-12)
-        self.LayerNorm = nn.LayerNorm(config.v_hidden_size, eps=1e-5)
+        self.LayerNorm = BertLayerNorm(config.v_hidden_size, eps=1e-12)
 
     def forward(self, hidden_states):
         hidden_states = self.dense(hidden_states)
@@ -1408,8 +1403,7 @@ class BertImageEmbeddings(nn.Module):
 
         self.image_embeddings = nn.Linear(config.v_feature_size, config.v_hidden_size)
         self.image_location_embeddings = nn.Linear(5, config.v_hidden_size)
-        # self.LayerNorm = BertLayerNorm(config.v_hidden_size, eps=1e-12)
-        self.LayerNorm = nn.LayerNorm(config.v_hidden_size, eps=1e-5)
+        self.LayerNorm = BertLayerNorm(config.v_hidden_size, eps=1e-12)
         self.dropout = nn.Dropout(config.hidden_dropout_prob)
 
     def forward(self, input_ids, input_loc):
@@ -1570,8 +1564,8 @@ class BertForMultiModalPreTraining(BertPreTrainedModel):
 #         linguisic_logit = self.linguisic_logit(self.dropout(sequence_output_t))
 
 #         return vil_prediction, vil_logit, vil_binary_prediction, vision_prediction, vision_logit, linguisic_prediction, linguisic_logit
-
-
+    
+    
 class VILBertForVLTasks(BertPreTrainedModel):
     def __init__(self, config, num_labels, dropout_prob=0.1, default_gpu=True):
         super(VILBertForVLTasks, self).__init__(config)
@@ -1611,7 +1605,6 @@ class VILBertForVLTasks(BertPreTrainedModel):
         vision_logit = self.vision_logit(self.dropout(sequence_output_v)) + ((1.0 - image_attention_mask)* -10000.0).unsqueeze(2).to(dtype=next(self.parameters()).dtype)
 
         return vision_logit
-
 
 class SimpleClassifier(nn.Module):
     def __init__(self, in_dim, hid_dim, out_dim, dropout):

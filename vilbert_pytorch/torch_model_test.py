@@ -233,7 +233,7 @@ def main():
                 for i in range(30):
                     vision_logit = model(question, features, spatials, segment_ids, input_mask, image_mask)
                 t1 = time.time()
-                timePerInference = (t1 - t0) * 1000 /30
+                timePerInference = (t1 - t0) * 1000 / 30
                 
             print(f'{batch_size}\t{timePerInference}\t')
 

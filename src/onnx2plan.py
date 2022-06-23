@@ -27,12 +27,23 @@ import onnx_graphsurgeon as gs
 import tensorrt as trt
 
 
-sourceOnnx = "/TRT2022_VilBERT/models/vilbert_model_vision_logit.onnx"
-onnxSurgeonFile = "/TRT2022_VilBERT/models/vilbert_model_vision_logit_optimizer.onnx"
-planFilePath = "./"
+import argparse
+parser = argparse.ArgumentParser()
+
+parser.add_argument("--onnxFile", default="vilbert_model_vision_logit_layernorm.onnx", type=str)
+parser.add_argument("--trtFile", default="vilbert_model_vision_logit_layernorm_fp16.plan", type=str)
+parser.add_argument("--fp16", action="store_true")
+args = parser.parse_args()
+
+
+models_path = "/TRT2022_VilBERT/models/"
+
+sourceOnnx = os.path.join(models_path, args.onnxFile)
+# onnxSurgeonFile = os.path.join(models_path, args.onnxSurgeonFile)
+planFilePath = "/TRT2022_VilBERT/libs/"
 soFileList = glob(planFilePath + "*.so")
 print(soFileList)
-trtFile = "/TRT2022_VilBERT/models/vilbert_model_vision_logit.plan"
+trtFile = os.path.join(models_path, args.trtFile)
 
 
 def run():
@@ -51,8 +62,9 @@ def run():
     profile = builder.create_optimization_profile()
     config = builder.create_builder_config()
     config.max_workspace_size = 12 << 30
-    # config.flags = 1 << int(trt.BuilderFlag.FP16)
-    # config.flags = config.flags | 1<<int(trt.BuilderFlag.STRICT_TYPES)
+    # if args.fp16:
+    #     config.flags = 1 << int(trt.BuilderFlag.FP16)
+    #     config.flags = config.flags | 1<<int(trt.BuilderFlag.STRICT_TYPES)
 
     parser = trt.OnnxParser(network, logger)
     if not os.path.exists(sourceOnnx):

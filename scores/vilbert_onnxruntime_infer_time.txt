@@ -1,12 +1,12 @@
 ==================================================
-batch_size: 8,	timePerInference: 11.3059,	batch_loss: 6.3814,	batch_score: 7.0000
+batch_size: 8,	timePerInference: 11.3982,	batch_loss: 6.3815,	batch_score: 7.0000
 ==================================================
-batch_size: 16,	timePerInference: 21.3549,	batch_loss: 8.9810,	batch_score: 13.0000
+batch_size: 16,	timePerInference: 21.6888,	batch_loss: 8.9812,	batch_score: 13.0000
 ==================================================
-batch_size: 32,	timePerInference: 38.4173,	batch_loss: 7.7942,	batch_score: 27.0000
+batch_size: 32,	timePerInference: 38.8250,	batch_loss: 7.7937,	batch_score: 27.0000
 ==================================================
-batch_size: 64,	timePerInference: 75.6066,	batch_loss: 7.1643,	batch_score: 49.0000
+batch_size: 64,	timePerInference: 76.4640,	batch_loss: 7.1647,	batch_score: 49.0000
 ==================================================
-batch_size: 128,	timePerInference: 149.2664,	batch_loss: 6.3486,	batch_score: 99.0000
+batch_size: 128,	timePerInference: 150.8038,	batch_loss: 6.3487,	batch_score: 99.0000
 ==================================================
-batch_size: 256,	timePerInference: 299.1354,	batch_loss: 6.1114,	batch_score: 203.0000
+batch_size: 256,	timePerInference: 299.4956,	batch_loss: 6.1115,	batch_score: 203.0000

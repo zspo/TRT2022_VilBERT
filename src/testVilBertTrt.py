@@ -5,6 +5,7 @@ import sys
 import ctypes
 import numpy as np
 from glob import glob
+import time
 from time import time_ns
 from datetime import datetime as dt
 from cuda import cudart
@@ -33,10 +34,18 @@ class InputFeature(object):
         self.batch_score        = batch_score
 
 
-planFilePath = "./"
+import argparse
+parser = argparse.ArgumentParser()
+
+parser.add_argument("--trtFile", default="vilbert_model_vision_logit_layernorm_fp16.plan", type=str)
+parser.add_argument("--scoreFile", default="vilbert_tensorrt_layernorm_fp16_infer_time.txt", type=str)
+args = parser.parse_args()
+
+planFilePath = "/TRT2022_VilBERT/libs/"
 soFileList = glob(planFilePath + "*.so")
 print(soFileList)
-trtFile = "/TRT2022_VilBERT/models/vilbert_model_vision_logit.plan"
+trtFile = os.path.join('/TRT2022_VilBERT/models/', args.trtFile)
+scoreFile = os.path.join('/TRT2022_VilBERT/scores/', args.scoreFile)
 
 #-------------------------------------------------------------------------------
 logger = trt.Logger(trt.Logger.ERROR)
@@ -51,7 +60,7 @@ for soFile in soFileList:
 
 
 def check(a, b, weak=False, info=""):  # 用于比较 TF 和 TRT 的输出结果
-    epsilon = 1e-6
+    epsilon = 1e-5
     if weak:
         res = np.all(np.abs(a - b) < epsilon)
     else:
@@ -87,7 +96,7 @@ def run():
     nOutput = engine.num_bindings - nInput
     context = engine.create_execution_context()
 
-    with open('/TRT2022_VilBERT/scores/vilbert_tensorrt_infer_time.txt', 'w') as fw:
+    with open(scoreFile, 'w') as fw:
         save_input_features_batch = torch.load('/TRT2022_VilBERT/infer_batch_inputs/save_input_features_with_model_res')
         for input_batch in save_input_features_batch:
 
@@ -133,8 +142,6 @@ def run():
             for i in range(10):
                 context.execute_v2(bufferD)
 
-            # test infernece time
-
             indexOut = engine.get_binding_index('vision_logit')
             trt_vision_logit = bufferH[indexOut]
             print(trt_vision_logit.shape)
@@ -145,11 +152,13 @@ def run():
             trt_vision_logit = torch.from_numpy(trt_vision_logit)
             trt_batch_loss, trt_batch_score = eval_logit(trt_vision_logit, target)
             
-            t0 = time_ns()
+            torch.cuda.synchronize()
+            t0 = time.time()
             for i in range(30):
                 context.execute_v2(bufferD)
-            t1 = time_ns()
-            timePerInference = (t1 - t0)/1000/1000/30
+            torch.cuda.synchronize()
+            t1 = time.time()
+            timePerInference = (t1 - t0) * 1000 / 30
             
             fw.write('='*50 + '\n')
             fw.write('batch_size: {},\ttimePerInference: {:.4f},\tbatch_loss: {:.4f},\tbatch_score: {:.4f}\n'.format(\

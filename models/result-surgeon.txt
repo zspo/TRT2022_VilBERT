@@ -1,0 +1,44 @@
+[I] Loading model: /tmp/tmp_polygraphy_6fde17c5b625038574aa1b9e3bbc0d2482300f5981da4a43.onnx
+[I] Original Model:
+    Name: torch-jit-export | ONNX Opset: 11
+    
+    ---- 6 Graph Input(s) ----
+    {question [dtype=int64, shape=('batch_size', 20)],
+     features [dtype=float32, shape=('batch_size', 100, 2048)],
+     spatials [dtype=float32, shape=('batch_size', 100, 5)],
+     segment_ids [dtype=int64, shape=('batch_size', 20)],
+     input_mask [dtype=int64, shape=('batch_size', 20)],
+     image_mask [dtype=int64, shape=('batch_size', 100)]}
+    
+    ---- 1 Graph Output(s) ----
+    {vision_logit [dtype=float32, shape=('batch_size', 100, 1)]}
+    
+    ---- 657 Initializer(s) ----
+    
+    ---- 2698 Node(s) ----
+    
+[I] Folding Constants | Pass 1
+[W] Attempting to run shape inference on a large model. This may require a large amount of memory.
+    If memory consumption becomes too high, the process may be killed. You may want to try disabling shape inference in that case. 
+[I]     Total Nodes | Original:  2698, After Folding:  2214 |   484 Nodes Folded
+[I] Folding Constants | Pass 2
+[I]     Total Nodes | Original:  2214, After Folding:  2214 |     0 Nodes Folded
+[I] Saving ONNX model to: vilbert_model_vision_logit_surgeon.onnx
+[I] New Model:
+    Name: torch-jit-export | ONNX Opset: 11
+    
+    ---- 6 Graph Input(s) ----
+    {question [dtype=int64, shape=('batch_size', 20)],
+     features [dtype=float32, shape=('batch_size', 100, 2048)],
+     spatials [dtype=float32, shape=('batch_size', 100, 5)],
+     segment_ids [dtype=int64, shape=('batch_size', 20)],
+     input_mask [dtype=int64, shape=('batch_size', 20)],
+     image_mask [dtype=int64, shape=('batch_size', 100)]}
+    
+    ---- 1 Graph Output(s) ----
+    {vision_logit [dtype=float32, shape=('batch_size', 100, 1)]}
+    
+    ---- 1116 Initializer(s) ----
+    
+    ---- 2214 Node(s) ----
+    

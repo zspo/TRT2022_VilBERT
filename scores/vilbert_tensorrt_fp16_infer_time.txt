@@ -1,0 +1,12 @@
+==================================================
+batch_size: 8,	timePerInference: 4.8063,	batch_loss: 6.3813,	batch_score: 7.0000
+==================================================
+batch_size: 16,	timePerInference: 8.2184,	batch_loss: 8.9762,	batch_score: 13.0000
+==================================================
+batch_size: 32,	timePerInference: 15.3249,	batch_loss: 7.9624,	batch_score: 26.0000
+==================================================
+batch_size: 64,	timePerInference: 27.1892,	batch_loss: 7.2476,	batch_score: 48.0000
+==================================================
+batch_size: 128,	timePerInference: 53.3068,	batch_loss: 6.3834,	batch_score: 98.0000
+==================================================
+batch_size: 256,	timePerInference: 105.6900,	batch_loss: 6.1296,	batch_score: 202.0000

@@ -132,6 +132,7 @@ dmypy.json
 models/*.bin
 models/*.onnx
 models/*.plan
+models/tmp_info
 
 vilbert_pytorch/data/referExpression/
 

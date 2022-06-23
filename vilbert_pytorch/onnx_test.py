@@ -126,7 +126,7 @@ with open('/TRT2022_VilBERT/scores/vilbert_onnxruntime_infer_time.txt', 'w') as 
         for i in range(30):
             _ = session.run(['vision_logit'], inputs)
         t1 = time.time()
-        timePerInference = (t1 - t0) * 1000 /30
+        timePerInference = (t1 - t0) * 1000 / 30
         
         fw.write('='*50 + '\n')
         fw.write('batch_size: {},\ttimePerInference: {:.4f},\tbatch_loss: {:.4f},\tbatch_score: {:.4f}\n'.format(\
