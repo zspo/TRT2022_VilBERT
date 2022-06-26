@@ -1,0 +1,175 @@
+['/TRT2022_VilBERT/libs/LayerNormPlugin.so']
+Find Plugin ['/TRT2022_VilBERT/libs/LayerNormPlugin.so']!
+Succeeded loading /TRT2022_VilBERT/models/vilbert_model_vision_logit.plan
+==================================================
+
+batch_size: 8,	timePerInference: 7.8373
+Generating '/tmp/nsys-report-2048.qdstrm'
+[1/8] [0%                          ] VilBertModel.nsys-rep[1/8] [0%                          ] VilBertModel.nsys-rep[1/8] [8%                          ] VilBertModel.nsys-rep[1/8] [===========51%              ] VilBertModel.nsys-rep[1/8] [=======================95%  ] VilBertModel.nsys-rep[1/8] [========================97% ] VilBertModel.nsys-rep[1/8] [========================100%] VilBertModel.nsys-rep[1/8] [================69%         ] VilBertModel.nsys-rep[1/8] [=======================93%  ] VilBertModel.nsys-rep[1/8] [=======================94%  ] VilBertModel.nsys-rep[1/8] [========================100%] VilBertModel.nsys-rep[1/8] [========================100%] VilBertModel.nsys-rep
+[2/8] [0%                          ] VilBertModel.sqlite[2/8] [1%                          ] VilBertModel.sqlite[2/8] [2%                          ] VilBertModel.sqlite[2/8] [3%                          ] VilBertModel.sqlite[2/8] [4%                          ] VilBertModel.sqlite[2/8] [5%                          ] VilBertModel.sqlite[2/8] [6%                          ] VilBertModel.sqlite[2/8] [7%                          ] VilBertModel.sqlite[2/8] [8%                          ] VilBertModel.sqlite[2/8] [9%                          ] VilBertModel.sqlite[2/8] [10%                         ] VilBertModel.sqlite[2/8] [11%                         ] VilBertModel.sqlite[2/8] [12%                         ] VilBertModel.sqlite[2/8] [13%                         ] VilBertModel.sqlite[2/8] [14%                         ] VilBertModel.sqlite[2/8] [=15%                        ] VilBertModel.sqlite[2/8] [=16%                        ] VilBertModel.sqlite[2/8] [=17%                        ] VilBertModel.sqlite[2/8] [==18%                       ] VilBertModel.sqlite[2/8] [==19%                       ] VilBertModel.sqlite[2/8] [==20%                       ] VilBertModel.sqlite[2/8] [==21%                       ] VilBertModel.sqlite[2/8] [===22%                      ] VilBertModel.sqlite[2/8] [===23%                      ] VilBertModel.sqlite[2/8] [===24%                      ] VilBertModel.sqlite[2/8] [====25%                     ] VilBertModel.sqlite[2/8] [====26%                     ] VilBertModel.sqlite[2/8] [====27%                     ] VilBertModel.sqlite[2/8] [====28%                     ] VilBertModel.sqlite[2/8] [=====29%                    ] VilBertModel.sqlite[2/8] [=====30%                    ] VilBertModel.sqlite[2/8] [=====31%                    ] VilBertModel.sqlite[2/8] [=====32%                    ] VilBertModel.sqlite[2/8] [======33%                   ] VilBertModel.sqlite[2/8] [======34%                   ] VilBertModel.sqlite[2/8] [======35%                   ] VilBertModel.sqlite[2/8] [=======36%                  ] VilBertModel.sqlite[2/8] [=======37%                  ] VilBertModel.sqlite[2/8] [=======38%                  ] VilBertModel.sqlite[2/8] [=======39%                  ] VilBertModel.sqlite[2/8] [========40%                 ] VilBertModel.sqlite[2/8] [========41%                 ] VilBertModel.sqlite[2/8] [========42%                 ] VilBertModel.sqlite[2/8] [=========43%                ] VilBertModel.sqlite[2/8] [=========44%                ] VilBertModel.sqlite[2/8] [=========45%                ] VilBertModel.sqlite[2/8] [=========46%                ] VilBertModel.sqlite[2/8] [==========47%               ] VilBertModel.sqlite[2/8] [==========48%               ] VilBertModel.sqlite[2/8] [==========49%               ] VilBertModel.sqlite[2/8] [===========50%              ] VilBertModel.sqlite[2/8] [===========51%              ] VilBertModel.sqlite[2/8] [===========52%              ] VilBertModel.sqlite[2/8] [===========53%              ] VilBertModel.sqlite[2/8] [============54%             ] VilBertModel.sqlite[2/8] [============55%             ] VilBertModel.sqlite[2/8] [============56%             ] VilBertModel.sqlite[2/8] [============57%             ] VilBertModel.sqlite[2/8] [=============58%            ] VilBertModel.sqlite[2/8] [=============59%            ] VilBertModel.sqlite[2/8] [=============60%            ] VilBertModel.sqlite[2/8] [==============61%           ] VilBertModel.sqlite[2/8] [==============62%           ] VilBertModel.sqlite[2/8] [==============63%           ] VilBertModel.sqlite[2/8] [==============64%           ] VilBertModel.sqlite[2/8] [===============65%          ] VilBertModel.sqlite[2/8] [===============66%          ] VilBertModel.sqlite[2/8] [===============67%          ] VilBertModel.sqlite[2/8] [================68%         ] VilBertModel.sqlite[2/8] [================69%         ] VilBertModel.sqlite[2/8] [================70%         ] VilBertModel.sqlite[2/8] [================71%         ] VilBertModel.sqlite[2/8] [=================72%        ] VilBertModel.sqlite[2/8] [=================73%        ] VilBertModel.sqlite[2/8] [=================74%        ] VilBertModel.sqlite[2/8] [==================75%       ] VilBertModel.sqlite[2/8] [==================76%       ] VilBertModel.sqlite[2/8] [==================77%       ] VilBertModel.sqlite[2/8] [==================78%       ] VilBertModel.sqlite[2/8] [===================79%      ] VilBertModel.sqlite[2/8] [===================80%      ] VilBertModel.sqlite[2/8] [===================81%      ] VilBertModel.sqlite[2/8] [===================82%      ] VilBertModel.sqlite[2/8] [====================83%     ] VilBertModel.sqlite[2/8] [====================84%     ] VilBertModel.sqlite[2/8] [====================85%     ] VilBertModel.sqlite[2/8] [=====================86%    ] VilBertModel.sqlite[2/8] [=====================87%    ] VilBertModel.sqlite[2/8] [=====================88%    ] VilBertModel.sqlite[2/8] [=====================89%    ] VilBertModel.sqlite[2/8] [======================90%   ] VilBertModel.sqlite[2/8] [======================91%   ] VilBertModel.sqlite[2/8] [======================92%   ] VilBertModel.sqlite[2/8] [=======================93%  ] VilBertModel.sqlite[2/8] [=======================94%  ] VilBertModel.sqlite[2/8] [=======================95%  ] VilBertModel.sqlite[2/8] [=======================96%  ] VilBertModel.sqlite[2/8] [========================97% ] VilBertModel.sqlite[2/8] [========================98% ] VilBertModel.sqlite[2/8] [========================99% ] VilBertModel.sqlite[2/8] [========================100%] VilBertModel.sqlite[2/8] [========================100%] VilBertModel.sqlite
+[3/8] Executing 'nvtxsum' stats report
+
+NVTX Range Statistics:
+
+ Time (%)  Total Time (ns)  Instances   Avg (ns)     Med (ns)   Min (ns)  Max (ns)   StdDev (ns)   Style                                      Range                                  
+ --------  ---------------  ---------  -----------  ----------  --------  ---------  -----------  --------  -------------------------------------------------------------------------
+     62.9       1720447777         10  172044777.7  93118878.5  92508806  879271208  248496208.1  StartEnd  myelin-exec:myelinGraphLoadPersistent                                    
+     35.0        956499522         10   95649952.2  94950804.0  94396103   98922228    1455863.4  StartEnd  myelinGraphDeserializeBinary                                             
+      1.3         34610622         10    3461062.2   3587409.0   2704510    3828170     403045.6  StartEnd  myelin-exec:myelinGraphUnloadPersistent                                  
+      0.3          7819320          1    7819320.0   7819320.0   7819320    7819320          0.0  PushPop   TensorRT:ExecutionContext::execute                                       
+      0.3          7738306          1    7738306.0   7738306.0   7738306    7738306          0.0  PushPop   TensorRT:{ForeignNode[bert.embeddings.word_embeddings.weight...Add_2697]}
+      0.3          7591164          1    7591164.0   7591164.0   7591164    7591164          0.0  StartEnd  myelin-exec:myelinGraphExecute                                           
+      0.0            42885          1      42885.0     42885.0     42885      42885          0.0  PushPop   TensorRT:[HostToDeviceCopy]                                              
+      0.0            18713          1      18713.0     18713.0     18713      18713          0.0  StartEnd  myelin-exec:myelinGraphLoad                                              
+      0.0            18031         10       1803.1      1697.0      1403       2554        410.6  StartEnd  myelinBinaryGraphCreate                                                  
+      0.0            11265          1      11265.0     11265.0     11265      11265          0.0  PushPop   TensorRT:Range_20                                                        
+      0.0             8797          7       1256.7       668.0       461       3807       1203.3  StartEnd  myelin-exec:myelinTensorGetMemory                                        
+      0.0             1821          2        910.5       910.5       695       1126        304.8  StartEnd  myelin-exec:myelinTensorSetMemory                                        
+      0.0             1743          1       1743.0      1743.0      1743       1743          0.0  StartEnd  myelin-exec:myelinGraphUnload                                            
+
+[4/8] Executing 'osrtsum' stats report
+
+Operating System Runtime API Statistics:
+
+ Time (%)  Total Time (ns)  Num Calls   Avg (ns)    Med (ns)    Min (ns)  Max (ns)   StdDev (ns)         Name        
+ --------  ---------------  ---------  ----------  -----------  --------  ---------  -----------  -------------------
+     91.6       7108354011         83  85642819.4  100107257.0      2113  100112405   33250202.8  poll               
+      6.8        531196043        600    885326.7       3321.0      1002  347055025   14694606.0  read               
+      1.5        113550404       3112     36487.9      24636.0      1015    9804377     225998.2  ioctl              
+      0.0          2056174        556      3698.2       3019.0      1304      14844       2023.3  open64             
+      0.0          1005502        113      8898.2       2756.0      1068     502197      47258.4  mmap64             
+      0.0           561842          1    561842.0     561842.0    561842     561842          0.0  fork               
+      0.0           546521          1    546521.0     546521.0    546521     546521          0.0  waitpid            
+      0.0           494217          9     54913.0      54721.0     53993      57400       1054.2  sleep              
+      0.0           425648         90      4729.4       5368.0      1094      14232       2090.7  munmap             
+      0.0           370930         66      5620.2       4778.5      1260      25920       3390.6  mmap               
+      0.0           269340         10     26934.0       9891.5      5769     182890      54902.4  sem_timedwait      
+      0.0           236418          6     39403.0       9500.0      2923     118873      51101.5  pthread_join       
+      0.0           115801          4     28950.3      30091.5     19653      35965       7003.6  pthread_create     
+      0.0            93178          9     10353.1       6536.0      5883      30319       8223.2  fgets              
+      0.0            70775         25      2831.0       2016.0      1031      11623       2346.5  fopen              
+      0.0            44860         12      3738.3       3803.0      1344       9996       2374.3  write              
+      0.0            30576          3     10192.0      11376.0      1204      17996       8458.4  pthread_mutex_lock 
+      0.0            24104          6      4017.3       3760.0      1406       6976       2022.9  open               
+      0.0            22310          1     22310.0      22310.0     22310      22310          0.0  connect            
+      0.0            15227          3      5075.7       1475.0      1229      12523       6450.8  pthread_cond_signal
+      0.0            13734          3      4578.0       5004.0      2177       6553       2218.9  pipe2              
+      0.0            12753          2      6376.5       6376.5      4914       7839       2068.3  socket             
+      0.0             9085          6      1514.2       1466.0      1044       1950        323.0  fclose             
+      0.0             5438          3      1812.7       1710.0      1047       2681        821.8  fopen64            
+      0.0             5089          1      5089.0       5089.0      5089       5089          0.0  fflush             
+      0.0             1541          1      1541.0       1541.0      1541       1541          0.0  fread              
+      0.0             1373          1      1373.0       1373.0      1373       1373          0.0  fputs_unlocked     
+      0.0             1344          1      1344.0       1344.0      1344       1344          0.0  sigaction          
+      0.0             1317          1      1317.0       1317.0      1317       1317          0.0  listen             
+      0.0             1154          1      1154.0       1154.0      1154       1154          0.0  bind               
+
+[5/8] Executing 'cudaapisum' stats report
+
+CUDA API Statistics:
+
+ Time (%)  Total Time (ns)  Num Calls   Avg (ns)     Med (ns)    Min (ns)    Max (ns)   StdDev (ns)               Name            
+ --------  ---------------  ---------  -----------  -----------  ---------  ----------  ------------  ----------------------------
+     65.8       2799561844          4  699890461.0       1705.5        407  2799558026  1399778376.7  cudaStreamIsCapturing_v10000
+     16.6        705724976          4  176431244.0    1615939.0       1792   702491306   350708489.5  cudaFree                    
+     10.4        443530572          2  221765286.0  221765286.0       8096   443522476   313612025.7  cudaMemGetInfo              
+      2.8        120313190          1  120313190.0  120313190.0  120313190   120313190           0.0  cudaMemcpy                  
+      1.9         82819789         14    5915699.2      15116.0       4360    82622337    22077692.1  cudaMemcpyAsync             
+      1.9         80382244          1   80382244.0   80382244.0   80382244    80382244           0.0  cuMemcpyAsync               
+      0.2          6612625         10     661262.5     621185.5     613587      861075       86695.4  cuModuleLoadData            
+      0.1          6109077          2    3054538.5    3054538.5      38679     6070398     4265069.4  cuStreamSynchronize         
+      0.1          3510866         10     351086.6     359401.0     221256      418809       51472.0  cuModuleUnload              
+      0.0          1551522          3     517174.0     693696.0     146884      710942      320796.5  cudaMalloc                  
+      0.0           600096        175       3429.1       3095.0       2456       27921        2012.2  cudaLaunchKernel            
+      0.0           506710          6      84451.7       8144.0       3813      466683      187322.0  cuMemcpyHtoD_v2             
+      0.0           361652          7      51664.6       6734.0       3423      206097       79333.2  cuMemFree_v2                
+      0.0           359011        117       3068.5       2817.0       2104        9052        1056.4  cuLaunchKernel              
+      0.0           320144         13      24626.5      14893.0       2440      173890       45094.5  cuStreamCreate              
+      0.0           279344          7      39906.3       5663.0       3202      183892       67267.9  cuMemAlloc_v2               
+      0.0           163917        760        215.7        179.0        100        2054         123.0  cuGetProcAddress            
+      0.0           142957         66       2166.0        403.5        140      115759       14198.9  cuEventDestroy_v2           
+      0.0            99069         13       7620.7       7090.0       1799       22050        4917.8  cuStreamDestroy_v2          
+      0.0            89479         24       3728.3       1747.0        515       32733        6498.6  cudaMemsetAsync             
+      0.0            60955          3      20318.3      20465.0       9008       31482       11237.7  cudaStreamCreate            
+      0.0            58158         11       5287.1       5630.0        707       10925        3039.5  cudaStreamSynchronize       
+      0.0            38642         66        585.5        318.0        209        2614         682.2  cuEventCreate               
+      0.0            18012          1      18012.0      18012.0      18012       18012           0.0  cuMemcpyDtoH_v2             
+      0.0            14936          2       7468.0       7468.0       7302        7634         234.8  cudaDeviceSynchronize       
+      0.0            12203          3       4067.7       4411.0       2509        5283        1418.5  cudaStreamDestroy           
+      0.0             4850          4       1212.5        533.5        453        3330        1412.2  cudaEventCreateWithFlags    
+      0.0             4664          3       1554.7       1697.0       1137        1830         367.8  cuInit                      
+      0.0             3323          1       3323.0       3323.0       3323        3323           0.0  cudaEventRecord             
+      0.0             2800          4        700.0        482.0        387        1449         502.2  cudaEventDestroy            
+      0.0             2548          1       2548.0       2548.0       2548        2548           0.0  cudaStreamWaitEvent         
+      0.0             1794          2        897.0        897.0        662        1132         332.3  cuEventRecord               
+      0.0             1250          1       1250.0       1250.0       1250        1250           0.0  cuStreamWaitEvent           
+      0.0              297          1        297.0        297.0        297         297           0.0  cuStreamIsCapturing         
+
+[6/8] Executing 'gpukernsum' stats report
+
+CUDA Kernel Statistics:
+
+ Time (%)  Total Time (ns)  Instances  Avg (ns)  Med (ns)  Min (ns)  Max (ns)  StdDev (ns)                                                  Name                                                
+ --------  ---------------  ---------  --------  --------  --------  --------  -----------  ----------------------------------------------------------------------------------------------------
+     26.7          1938074         38   51001.9   49984.0     49184     89568       6430.6  void cutlass::Kernel<cutlass_80_tensorop_s1688gemm_128x128_16x5_nn_align4>(T1::Params)              
+     23.5          1706912         11  155173.8  155104.0    154304    156288        586.9  void cutlass::Kernel<cutlass_80_tensorop_s1688gemm_256x64_16x4_nn_align4>(T1::Params)               
+     15.1          1098243         32   34320.1   34208.0     28225     39616       4258.3  void cutlass::Kernel<cutlass_80_tensorop_s1688gemm_128x64_16x6_nn_align4>(T1::Params)               
+     10.7           777181         45   17270.7   18815.0      4640     32544      10065.4  void cutlass::Kernel<cutlass_80_tensorop_s1688gemm_64x64_16x6_nn_align4>(T1::Params)                
+      5.0           363841         19   19149.5   19072.0     18687     20032        338.8  __myl_bb0_74_AddSumDivMulSubMulSumDivMulAddSqrDivMulMulAdd                                          
+      4.7           340768         28   12170.3   12432.0      5760     21376       5895.4  void cutlass::Kernel<cutlass_80_tensorop_s1688gemm_64x64_16x6_tn_align4>(T1::Params)                
+      3.7           269058         16   16816.1   16416.0     15072     19424       1674.2  void cutlass::Kernel<cutlass_80_tensorop_s1688gemm_64x64_32x6_nn_align4>(T1::Params)                
+      2.5           182785         27    6769.8    7040.0      4992      7904        863.9  __myl_bb0_107_AddSumDivMulSubMulSumDivMulAddSqrDivMulMulAdd                                         
+      2.0           148128         12   12344.0   12768.0      7712     14336       2248.4  __myl_bb0_84_DivErfAddMulMul                                                                        
+      1.7           125185         16    7824.1    9216.0      5088      9889       2167.0  __myl_bb0_112_DivErfAddMulMul                                                                       
+      0.5            39841          6    6640.2    6624.0      6240      7073        304.4  __myl_bb0_80_DivMulAddResMaxSubExpSumDivMul                                                         
+      0.5            35806         10    3580.6    3439.5      3360      3935        242.4  __myl_bb0_110_DivMulAddResMaxSubExpSumDivMul                                                        
+      0.3            21825          6    3637.5    3600.0      3584      3841        100.9  __myl_bb0_88_DivMulAddResMaxSubExpSumDivMul                                                         
+      0.3            20416          1   20416.0   20416.0     20416     20416          0.0  __myl_bb0_78_AddSumDivMulSubMulSumDivMulAddSqrDivMulMulAdd                                          
+      0.3            19904          1   19904.0   19904.0     19904     19904          0.0  __myl_bb0_82_AddSumDivMulSubMulSumDivMulAddSqrDivMulMulAdd                                          
+      0.3            19744          4    4936.0    5072.0      4160      5440        553.3  __myl_bb0_71_DivMulAddResMaxSubExpSumDivMul                                                         
+      0.3            19744          1   19744.0   19744.0     19744     19744          0.0  __myl_bb0_3_AddSumDivMulSubMulSumDivMulAddSqrDivMulMulAdd                                           
+      0.3            19615          1   19615.0   19615.0     19615     19615          0.0  __myl_bb0_86_ResAddSumDivMulSubMulSumDivMulAddSqrDivMulMulAdd                                       
+      0.3            19392          1   19392.0   19392.0     19392     19392          0.0  __myl_bb0_1_AddSumDivMulSubMulSumDivMulAddSqrDivMulMulAdd                                           
+      0.1            10656          1   10656.0   10656.0     10656     10656          0.0  __myl_bb0_89_DivMulAddSqrDivMulMulAddResTra                                                         
+      0.1             8384          1    8384.0    8384.0      8384      8384          0.0  ampere_sgemm_128x32_nn                                                                              
+      0.1             8096          1    8096.0    8096.0      8096      8096          0.0  __myl_bb0_90_SumDivMulSubMulSum                                                                     
+      0.1             7296          1    7296.0    7296.0      7296      7296          0.0  void epilogue::impl::globalKernel<(int)8, (int)32, float, float, float, (bool)1, (bool)1>(int, int,…
+      0.1             7264          1    7264.0    7264.0      7264      7264          0.0  __myl_bb0_14_AddSumDivMulSubMulSumDivMulAddSqrDivMulMulAdd                                          
+      0.1             7072          1    7072.0    7072.0      7072      7072          0.0  __myl_bb0_10_AddSumDivMulSubMulSumDivMulAddSqrDivMulMulAdd                                          
+      0.1             6720          1    6720.0    6720.0      6720      6720          0.0  __myl_bb0_116_GatGatRepGatResResAddResAddSumDivMulSubMulSum                                         
+      0.1             6176          1    6176.0    6176.0      6176      6176          0.0  std::enable_if<!T7, void>::type internal::gemvx::kernel<int, int, float, float, float, float, (bool…
+      0.1             6144          1    6144.0    6144.0      6144      6144          0.0  __myl_bb0_111_AddSumDivMulSubMulSumDivMulAddSqrDivMulMulAdd                                         
+      0.1             5280          1    5280.0    5280.0      5280      5280          0.0  __myl_bb0_113_ResAddSumDivMulSubMulSumDivMulAddSqrDivMulMulAdd                                      
+      0.1             5216          1    5216.0    5216.0      5216      5216          0.0  __myl_bb0_109_AddSumDivMulSubMulSumDivMulAddSqrDivMulMulAdd                                         
+      0.1             5152          1    5152.0    5152.0      5152      5152          0.0  __myl_bb0_87_DivMulCasSubMulAddResMaxSubExpSumDivMul                                                
+      0.1             4320          1    4320.0    4320.0      4320      4320          0.0  __myl_bb0_115_DivMulAddSqrDivMulMulAddResTra                                                        
+      0.0             3392          1    3392.0    3392.0      3392      3392          0.0  __myl_bb0_114_DivMulCasSubMulAddResMaxSubExpSumDivMul                                               
+      0.0             3232          1    3232.0    3232.0      3232      3232          0.0  <unnamed>::kernelShapeCopyH2D(int *, std::array<int, (unsigned long)256>, unsigned int)             
+      0.0             2720          1    2720.0    2720.0      2720      2720          0.0  __myl_bb0_117_CasSubMulResAddResTraResResAdd                                                        
+      0.0             2527          1    2527.0    2527.0      2527      2527          0.0  void cuFillLayer::fill<int>(cuFillLayer::KernelArgs<T1>)                                            
+
+[7/8] Executing 'gpumemtimesum' stats report
+
+CUDA Memory Operation Statistics (by time):
+
+ Time (%)  Total Time (ns)  Count   Avg (ns)    Med (ns)   Min (ns)  Max (ns)   StdDev (ns)      Operation     
+ --------  ---------------  -----  ----------  ----------  --------  ---------  -----------  ------------------
+     57.2        163252485     14  11660891.8      1728.5       896   82524036   29555602.6  [CUDA memcpy HtoD]
+     42.1        120159695      2  60079847.5  60079847.5      1760  120157935   84963246.1  [CUDA memcpy DtoH]
+      0.6          1770304     23     76969.7       865.0       864    1732670     360945.3  [CUDA memset]     
+      0.0            42367      7      6052.4      2336.0      2079      28512       9907.1  [CUDA memcpy DtoD]
+
+[8/8] Executing 'gpumemsizesum' stats report
+
+CUDA Memory Operation Statistics (by size):
+
+ Total (MB)  Count  Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)      Operation     
+ ----------  -----  --------  --------  --------  --------  -----------  ------------------
+   1753.829     14   125.274     0.014     0.001   873.527      317.009  [CUDA memcpy HtoD]
+    873.530      2   436.765   436.765     0.003   873.527      617.674  [CUDA memcpy DtoH]
+    856.620     23    37.244     0.000     0.000   850.044      177.189  [CUDA memset]     
+      6.578      7     0.940     0.003     0.001     6.554        2.476  [CUDA memcpy DtoD]
+
+Generated:
+    /TRT2022_VilBERT/src/VilBertModel.nsys-rep
+    /TRT2022_VilBERT/src/VilBertModel.sqlite

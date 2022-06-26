@@ -21,9 +21,9 @@ import tensorrt as trt
 
 class MyCalibrator(trt.IInt8EntropyCalibrator2):
 
-    def __init__(self, calibrationCount, batchSize, cacheFile):
+    def __init__(self, batchInputs, batchSize, cacheFile):
         trt.IInt8EntropyCalibrator2.__init__(self)
-        self.calibrationCount = calibrationCount
+        self.batchInputs = batchInputs
         self.batchSize = batchSize
         self.buffeSize = trt.volume(inputShape) * trt.float32.itemsize
         self.cacheFile = cacheFile
@@ -36,12 +36,11 @@ class MyCalibrator(trt.IInt8EntropyCalibrator2):
     def get_batch_size(self):  # do NOT change name
         return self.batchSize
 
-    def get_batch(self, nameList=None, inputNodeName=None):  # do NOT change name
-        if self.count < self.calibrationCount:
-            self.count += 1
-            data = np.ascontiguousarray(np.random.rand(np.prod(self.shape)).astype(np.float32).reshape(*self.shape)*200-100)
-            cudart.cudaMemcpy(self.dIn, data.ctypes.data, self.buffeSize, cudart.cudaMemcpyKind.cudaMemcpyHostToDevice)
-            return [int(self.dIn)]
+    def get_batch(self, inputNodeName=None):  # do NOT change name
+        
+        data = np.ascontiguousarray(np.random.rand(np.prod(self.shape)).astype(np.float32).reshape(*self.shape)*200-100)
+        cudart.cudaMemcpy(self.dIn, data.ctypes.data, self.buffeSize, cudart.cudaMemcpyKind.cudaMemcpyHostToDevice)
+        return [int(self.dIn)]
         else:
             return None
 
@@ -60,9 +59,10 @@ class MyCalibrator(trt.IInt8EntropyCalibrator2):
             f.write(cache)
         print("Succeed saving int8 cache!")
 
+
 if __name__ == "__main__":
     cudart.cudaDeviceSynchronize()
-    m = MyCalibrator(5, (1, 1, 28, 28), "./int8.cache")
+    m = MyCalibrator(5, 16, "./int8.cache")
     m.get_batch("FakeNameList")
     m.get_batch("FakeNameList")
     m.get_batch("FakeNameList")

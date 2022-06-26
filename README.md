@@ -6,9 +6,15 @@
 
 原始模型参考：https://github.com/jiasenlu/vilbert_beta
 
+### 项目摘要
+ViLBERT模型的评测有Image Retrieval、VQA、VCR及RefCOCO+等任务，由于任务数据的复杂性，因此本项目主要针对`RefCOCO+`任务进行评测。
+本项目首先基于评测任务对原始的`Pytorch`模型进行模型的精剪，去除对评测任务无关的层，并对运行流程进行简化。其次针对转化`Onnx`模型转化及`TensorRT`转化等问题进行原始模型层的替换及版本替换，从而顺利进行模型的转换。然后针对`TensorRT`尝试进行`FP16`精度的推理，虽然评测指标没有影响，但是输出的`logit`误差较大，因此使用`polygraphy`工具进行`onnxruntime`及`trt`的推理输出结果对比，在设置`mark all`参数有误后使用二分法进行层的结果对比，使用`strict type`显式控制某些层的计算精度。其次使用`onnx_graphsurgeon`对原始图进行`layernorm`的算子融合，并基于cuda编程编写了对应的`plugin`算子，在初赛中编写layernorm-plugin有一定的速度提升，但本模型推理时间会变长，使用`nsightsystems`工具进行耗时的评估观察，发现新增了部分新的更耗时的节点。除此之外也尝试了编写calibrator进行`INT8`的推理，最终未评测。
 
 ### 模型简介：
-主要针对RefCOCO+任务进行评测
+
+![](./fig/vilbert_transformer.png)
+
+
 
 ### 运行环境：
 
@@ -34,18 +40,24 @@
 ├── README.md
 ├── requirements.txt
 ├── fig
-├── infer_batch_inputs              # 推理测试所需的batch输入及torch模型的target、logit、batch_loss、batch_score
+├── infer_batch_inputs
+│   ├── save_input_features_batch_all            # 原始文件生成的推理数据
+│   └── save_input_features_with_model_res       # 含有torch模型的target、logit、batch_loss、batch_score的推理数据
 ├── libs
+├── logs                            # 相关脚本运行日志
 ├── models
 │   └── readme.md                   # onnx 及 trt plan存放路径
 ├── plugins
+│   ├── Makefile.inc
 │   └── LayerNormPlugin             # trt plugin路径
 ├── scores                          # 评测结果存放路径
 ├── script                          # 运行shell脚本
 ├── src
+│   ├── calibrator.py               # int8推理所需的校准器
 │   ├── onnx2plan.py                # onnx转plan
 │   ├── onnx_optimize.py            # onnx图优化
 │   └── testVilBertTrt.py           # tensorrt推理评测
+├── test                            # 测试脚本
 └── vilbert_pytorch
     ├── README.md
     ├── config                      # 模型配置
@@ -115,35 +127,72 @@ sh script/tensorrt_infer.sh
 ### 优化细节：
 
 ##### 原始模型修改以生成合适的Onnx
+原始模型中的LayerNorm是继承`nn.Module`自定义节点，在转为Onnx后发现layernorm节点中`ReduceMean`之后有两个，因此修改原始模型，以torch自带的`nn.LayerNorm`替换原有的节点，导出的Onnx为正常结构。
+![](./fig/onnx_2.png)
 
 ##### Onnx导出版本及Pytorch版本导致节点生成不同
+在`pytorch==1.4`及`opset_version=10`版本下导出Onnx时，出现`NonZero`节点，后续无法进行tensorrt的转换，因此换用`pytorch==1.8`及`opset_version=11`后，Onnx节点进行了合并替换。
+![](./fig/onnx_1.png)
 
 ##### 使用polygraphy进行FP16精度下的层输出对比
 
+##### plugin编写
+在初赛中，
+
+
 ### 性能对比：
 
-##### 评测说明：
+具体可见`scores`下的各个结果文件
+
+##### 推理精度评测：
+推理精度评估分为模型的最终输出误差对比及评测任务的指标对比
+
+**评测任务指标对比如下：**
+| BatchSize |PytorchV2(G) | OnnxRuntime(G) | TensorRT    | TensorRT(FP16) |
+| --------- | ---------   | -------------  | -------     | -------------  |
+| 8         | 6.38/7.00   | 6.38/7.00      | 6.38/7.00   | 6.38/7.00      |
+| 16        | 8.98/13.00  | 8.98/13.00     | 8.98/13.00  | 8.98/13.00     |
+| 32        | 7.79/27.00  | 7.79/27.00     | 7.79/27.00  | 7.96/26.00     |
+| 64        | 7.16/49.00  | 7.16/49.00     | 7.16/49.00  | 7.25/48.00     |
+| 128       | 6.34/99.00  | 6.34/99.00     | 6.34/99.00  | 6.38/98.00     |
+| 256       | 6.11/203.00 | 6.11/203.00    | 6.11/203.00 | 6.13/202.00    |
+*注：表中数据为`batch_loss/batch_score`*
+
+
+**模型输出结果误差对比如下：**
+| BatchSize | OnnxRuntime(G) | TensorRT    | TensorRT(FP16) |
+| --------- | -------------  | -------     | -------------  |
+| 8         | 0.00250956742  | 0.00458103  | 0.02872051     |
+| 16        | 0.00415383419  | 0.00284276  | 0.02610013     |
+| 32        | 0.00978794414  | 0.00986979  | 2.77385377     |
+| 64        | 0.02325059846  | 0.03854355  | 2.80445337     |
+| 128       | 0.99567425251  | 0.59527492  | 2.80533838     |
+| 256       | 0.99567425251  | 0.59527724  | 2.80533838     |
+
+如上所述，虽然模型的输出结果误差较大，但是对最终任务的评测指标几乎没有影响。
+
+##### 推理速度评测：
 
 用同一份输入评测数据：`infer_batch_inputs/save_input_features_with_model_res`
-首先进行模型的warm up，再进行模型的30次推理，时间取平均
+首先进行模型的`warm up`，再进行模型的30次推理，时间取平均
 
 + Pytorch(C):         原始Vilbert模型在CPU上运行
 + Pytorch(G):         原始Vilbert模型在A10-GPU上运行
 + PytorchV2(G):       优化LayerNorm，用torch.nn.LayerNorm替代自定义BertLayerNorm后的Vilbert模型在A10-GPU上运行
 + OnnxRuntime(G)：    优化后的Vilbert模型在A10-GPU上以OnnxRuntime进行推理
 + TensorRT:           基于Onnx转的Plan模型以TensorRT进行推理
-+ TensorRT(FP16):     
++ TensorRT(FP16):     TensorRT以FP16精度进行推理
 + TensorRT(Opt):      基于优化后的Onnx及优化后的TensorRT进行推理
 
+| BatchSize | Pytorch(C) | Pytorch(G) | PytorchV2(G) | OnnxRuntime(G) | TensorRT | TensorRT(FP16) | TensorRT(Opt) |
+| --------- | ---------  | ---------  | ---------    | -------------  | -------  | -------------  | ------------  |
+| 8         | 417.57     | 25.33      | 19.41        | 11.31          | 8.70     | 4.81           |               |
+| 16        | 984.57     | 31.85      | 26.15        | 21.35          | 16.44    | 8.22           |               |
+| 32        | 1508.12    | 55.17      | 46.07        | 38.42          | 28.47    | 15.32          |               |
+| 64        | 2553.40    | 106.70     | 88.92        | 75.61          | 54.88    | 27.19          |               |
+| 128       | **         | 214.04     | 178.74       | 149.27         | 106.12   | 53.31          |               |
+| 256       | **         | 428.90     | 360.32       | 299.14         | 213.98   | 105.69         |               |
 
-| BatchSize | Pytorch(C) | Pytorch(G) | PytorchV2(G) | OnnxRuntime(G) | TensorRT | TensorRT(Opt) |
-| --------- | ---------  | ---------  | ---------    | -------------  | -------  | ------------  |
-| 8         | 417.57     | 25.33      | 19.41        | 11.31          | 8.70     |               |
-| 16        | 984.57     | 31.85      | 26.15        | 21.35          | 16.44    |               |
-| 32        | 1508.12    | 55.17      | 46.07        | 38.42          | 28.47    |               |
-| 64        | 2553.40    | 106.70     | 88.92        | 75.61          | 54.88    |               |
-| 128       | **         | 214.04     | 178.74       | 149.27         | 106.12   |               |
-| 256       | **         | 428.90     | 360.32       | 299.14         | 213.98   |               |
+![](./fig/inference.png)
 
-
-### Reference：
+### 总结与不足:

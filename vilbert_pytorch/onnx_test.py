@@ -44,8 +44,8 @@ for input_batch in save_input_features_batch:
     break
     
     
-def check(a, b, weak=False, info=""):  # 用于比较 TF 和 TRT 的输出结果
-    epsilon = 1e-6
+def check(a, b, weak=True, info=""):  # 用于比较 TF 和 TRT 的输出结果
+    epsilon = 1e-3
     if weak:
         res = np.all(np.abs(a - b) < epsilon)
     else:
@@ -53,6 +53,8 @@ def check(a, b, weak=False, info=""):  # 用于比较 TF 和 TRT 的输出结果
     diff0 = np.max(np.abs(a - b))
     diff1 = np.max(np.abs(a - b) / (np.abs(b) + epsilon))
     print("check %s:" % info, res, diff0, diff1)
+    check_info = "{}\t{}\t{}\n".format(res, diff0, diff1)
+    return check_info
 
 
 def eval_logit(vision_logit, target):
@@ -116,7 +118,7 @@ with open('/TRT2022_VilBERT/scores/vilbert_onnxruntime_infer_time.txt', 'w') as 
         
         vision_logit = vision_logit.cpu().numpy()
         
-        check(onnx_vision_logit, vision_logit, True)
+        check_info = check(onnx_vision_logit, vision_logit, True)
 
         onnx_vision_logit = torch.from_numpy(onnx_vision_logit)
 
@@ -131,7 +133,7 @@ with open('/TRT2022_VilBERT/scores/vilbert_onnxruntime_infer_time.txt', 'w') as 
         fw.write('='*50 + '\n')
         fw.write('batch_size: {},\ttimePerInference: {:.4f},\tbatch_loss: {:.4f},\tbatch_score: {:.4f}\n'.format(\
                     batch_size, timePerInference, onnx_batch_loss, onnx_batch_score))
-        
+        fw.write(check_info)
 
 
 

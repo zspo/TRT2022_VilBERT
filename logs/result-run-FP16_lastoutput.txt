@@ -1,0 +1,677 @@
+[06/24/2022-09:11:02] [TRT] [I] [MemUsageChange] Init CUDA: CPU +329, GPU +0, now: CPU 367, GPU 403 (MiB)
+[06/24/2022-09:11:03] [TRT] [I] [MemUsageChange] Init builder kernel library: CPU +327, GPU +104, now: CPU 713, GPU 507 (MiB)
+[06/24/2022-09:11:03] [TRT] [I] ----------------------------------------------------------------
+[06/24/2022-09:11:03] [TRT] [I] Input filename:   /TRT2022_VilBERT/models/vilbert_model_vision_logit.onnx
+[06/24/2022-09:11:03] [TRT] [I] ONNX IR version:  0.0.6
+[06/24/2022-09:11:03] [TRT] [I] Opset version:    11
+[06/24/2022-09:11:03] [TRT] [I] Producer name:    pytorch
+[06/24/2022-09:11:03] [TRT] [I] Producer version: 1.8
+[06/24/2022-09:11:03] [TRT] [I] Domain:           
+[06/24/2022-09:11:03] [TRT] [I] Model version:    0
+[06/24/2022-09:11:03] [TRT] [I] Doc string:       
+[06/24/2022-09:11:03] [TRT] [I] ----------------------------------------------------------------
+[06/24/2022-09:11:04] [TRT] [W] onnx2trt_utils.cpp:369: Your ONNX model has been generated with INT64 weights, while TensorRT does not natively support INT64. Attempting to cast down to INT32.
+[06/24/2022-09:11:11] [TRT] [I] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +850, GPU +368, now: CPU 2411, GPU 875 (MiB)
+[06/24/2022-09:11:12] [TRT] [I] [MemUsageChange] Init cuDNN: CPU +128, GPU +58, now: CPU 2539, GPU 933 (MiB)
+[06/24/2022-09:11:12] [TRT] [I] Global timing cache in use. Profiling results in this builder pass will be stored.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.embeddings.word_embeddings.weight] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.embeddings.token_type_embeddings.weight] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.embeddings.position_embeddings.weight] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=574 + (Unnamed Layer* 95) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3803 + (Unnamed Layer* 136) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3804 + (Unnamed Layer* 142) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3805 + (Unnamed Layer* 148) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.0.attention.self.key.bias + (Unnamed Layer* 145) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.0.attention.self.value.bias + (Unnamed Layer* 151) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3813 + (Unnamed Layer* 224) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.0.attention.output.dense.bias + (Unnamed Layer* 227) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=680 + (Unnamed Layer* 237) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3814 + (Unnamed Layer* 248) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.0.intermediate.dense.bias + (Unnamed Layer* 251) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3815 + (Unnamed Layer* 265) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.0.output.dense.bias + (Unnamed Layer* 268) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=706 + (Unnamed Layer* 278) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3816 + (Unnamed Layer* 289) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3817 + (Unnamed Layer* 295) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3818 + (Unnamed Layer* 301) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.1.attention.self.query.bias + (Unnamed Layer* 292) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.1.attention.self.key.bias + (Unnamed Layer* 298) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3826 + (Unnamed Layer* 377) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.1.attention.output.dense.bias + (Unnamed Layer* 380) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=794 + (Unnamed Layer* 390) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3827 + (Unnamed Layer* 401) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3828 + (Unnamed Layer* 418) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=820 + (Unnamed Layer* 431) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3829 + (Unnamed Layer* 442) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3830 + (Unnamed Layer* 448) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3831 + (Unnamed Layer* 454) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.2.attention.self.key.bias + (Unnamed Layer* 451) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.2.attention.self.value.bias + (Unnamed Layer* 457) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3839 + (Unnamed Layer* 530) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.2.attention.output.dense.bias + (Unnamed Layer* 533) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=908 + (Unnamed Layer* 543) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3840 + (Unnamed Layer* 554) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3841 + (Unnamed Layer* 571) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=934 + (Unnamed Layer* 584) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3842 + (Unnamed Layer* 595) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3843 + (Unnamed Layer* 601) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3844 + (Unnamed Layer* 607) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.3.attention.self.query.bias + (Unnamed Layer* 598) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.3.attention.self.key.bias + (Unnamed Layer* 604) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.3.attention.self.value.bias + (Unnamed Layer* 610) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3852 + (Unnamed Layer* 683) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.3.attention.output.dense.bias + (Unnamed Layer* 686) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=1022 + (Unnamed Layer* 696) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3853 + (Unnamed Layer* 707) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3854 + (Unnamed Layer* 724) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.3.output.dense.bias + (Unnamed Layer* 727) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=1048 + (Unnamed Layer* 737) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3855 + (Unnamed Layer* 748) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3856 + (Unnamed Layer* 754) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3857 + (Unnamed Layer* 760) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.4.attention.self.key.bias + (Unnamed Layer* 757) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.4.attention.self.value.bias + (Unnamed Layer* 763) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3865 + (Unnamed Layer* 836) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.4.attention.output.dense.bias + (Unnamed Layer* 839) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=1136 + (Unnamed Layer* 849) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.4.attention.output.LayerNorm.bias + (Unnamed Layer* 857) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3866 + (Unnamed Layer* 860) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3867 + (Unnamed Layer* 877) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=1162 + (Unnamed Layer* 890) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.4.output.LayerNorm.bias + (Unnamed Layer* 898) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3868 + (Unnamed Layer* 901) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3869 + (Unnamed Layer* 907) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3870 + (Unnamed Layer* 913) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.5.attention.self.key.bias + (Unnamed Layer* 910) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.5.attention.self.value.bias + (Unnamed Layer* 916) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3878 + (Unnamed Layer* 989) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.5.attention.output.dense.bias + (Unnamed Layer* 992) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=1250 + (Unnamed Layer* 1002) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3879 + (Unnamed Layer* 1013) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.5.intermediate.dense.bias + (Unnamed Layer* 1016) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3880 + (Unnamed Layer* 1030) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.5.output.dense.bias + (Unnamed Layer* 1033) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=1276 + (Unnamed Layer* 1043) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3890 + (Unnamed Layer* 1110) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3891 + (Unnamed Layer* 1116) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3892 + (Unnamed Layer* 1122) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.0.biattention.query2.bias + (Unnamed Layer* 1113) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.0.biattention.key2.bias + (Unnamed Layer* 1119) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.0.biattention.value2.bias + (Unnamed Layer* 1125) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.0.biattention.query1.bias + (Unnamed Layer* 1057) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3881 + (Unnamed Layer* 1054) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.v_embeddings.LayerNorm.bias + (Unnamed Layer* 133) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.v_embeddings.image_embeddings.bias + (Unnamed Layer* 109) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3801 + (Unnamed Layer* 106) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.v_embeddings.image_location_embeddings.bias + (Unnamed Layer* 115) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3802 + (Unnamed Layer* 112) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=592 + (Unnamed Layer* 125) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.0.biattention.key1.bias + (Unnamed Layer* 1063) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3882 + (Unnamed Layer* 1060) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3901 + (Unnamed Layer* 1230) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.0.biattention.value1.bias + (Unnamed Layer* 1069) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3883 + (Unnamed Layer* 1066) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.0.biOutput.dense1.bias + (Unnamed Layer* 1233) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3902 + (Unnamed Layer* 1236) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.0.biOutput.dense2.bias + (Unnamed Layer* 1239) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=1440 + (Unnamed Layer* 1249) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.0.biOutput.LayerNorm1.bias + (Unnamed Layer* 1257) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=1452 + (Unnamed Layer* 1267) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3903 + (Unnamed Layer* 1278) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.0.biOutput.LayerNorm2.bias + (Unnamed Layer* 1275) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.0.v_intermediate.dense.bias + (Unnamed Layer* 1281) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3905 + (Unnamed Layer* 1319) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3904 + (Unnamed Layer* 1295) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.0.v_output.dense.bias + (Unnamed Layer* 1298) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3906 + (Unnamed Layer* 1336) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=1478 + (Unnamed Layer* 1308) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.0.t_output.dense.bias + (Unnamed Layer* 1339) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.0.v_output.LayerNorm.bias + (Unnamed Layer* 1316) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=1504 + (Unnamed Layer* 1349) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3907 + (Unnamed Layer* 1360) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3908 + (Unnamed Layer* 1366) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3909 + (Unnamed Layer* 1372) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.0.t_output.LayerNorm.bias + (Unnamed Layer* 1357) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.v_layer.0.attention.self.query.bias + (Unnamed Layer* 1363) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.v_layer.0.attention.self.key.bias + (Unnamed Layer* 1369) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.v_layer.0.attention.self.value.bias + (Unnamed Layer* 1375) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3920 + (Unnamed Layer* 1513) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3921 + (Unnamed Layer* 1519) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3922 + (Unnamed Layer* 1525) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3917 + (Unnamed Layer* 1448) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.6.attention.self.query.bias + (Unnamed Layer* 1516) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.6.attention.self.key.bias + (Unnamed Layer* 1522) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.v_layer.0.attention.output.dense.bias + (Unnamed Layer* 1451) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3930 + (Unnamed Layer* 1601) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=1592 + (Unnamed Layer* 1461) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.v_layer.0.attention.output.LayerNorm.bias + (Unnamed Layer* 1469) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=1706 + (Unnamed Layer* 1614) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3918 + (Unnamed Layer* 1472) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3931 + (Unnamed Layer* 1625) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.6.intermediate.dense.bias + (Unnamed Layer* 1628) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3919 + (Unnamed Layer* 1489) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.v_layer.0.output.dense.bias + (Unnamed Layer* 1492) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3932 + (Unnamed Layer* 1642) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=1618 + (Unnamed Layer* 1502) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.v_layer.0.output.LayerNorm.bias + (Unnamed Layer* 1510) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=1732 + (Unnamed Layer* 1655) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3933 + (Unnamed Layer* 1666) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.layer.6.output.LayerNorm.bias + (Unnamed Layer* 1663) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3943 + (Unnamed Layer* 1728) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=3944 + (Unnamed Layer* 1734) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.1.biattention.key2.bias + (Unnamed Layer* 1731) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W]  - Values less than smallest positive FP16 Subnormal value detected. Converting to FP16 minimum subnormalized value. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:12:31] [TRT] [W] Weights [name=bert.encoder.c_layer.1.biattention.value2.bias + (Unnamed Layer* 1737) [Shuffle]] had the following issues when converted to FP16:
+[06/24/2022-09:12:31] [TRT] [W]  - Subnormal FP16 values detected. 
+[06/24/2022-09:12:31] [TRT] [W] If this is not the desired behavior, please modify the weights or retrain with regularization to reduce the magnitude of the weights.
+[06/24/2022-09:26:37] [TRT] [I] Detected 6 inputs and 1 output network tensors.
+[06/24/2022-09:26:39] [TRT] [I] Total Host Persistent Memory: 256
+[06/24/2022-09:26:39] [TRT] [I] Total Device Persistent Memory: 0
+[06/24/2022-09:26:39] [TRT] [I] Total Scratch Memory: 393646080
+[06/24/2022-09:26:39] [TRT] [I] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 188 MiB, GPU 1388 MiB
+[06/24/2022-09:26:39] [TRT] [I] [BlockAssignment] Algorithm ShiftNTopDown took 0.120474ms to assign 6 blocks to 6 nodes requiring 551189504 bytes.
+[06/24/2022-09:26:39] [TRT] [I] Total Activation Memory: 551189504
+[06/24/2022-09:26:39] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in building engine: CPU +0, GPU +512, now: CPU 0, GPU 512 (MiB)
+[06/24/2022-09:26:39] [TRT] [W] The getMaxBatchSize() function should not be used with an engine built from a network created with NetworkDefinitionCreationFlag::kEXPLICIT_BATCH flag. This function will always return 1.
+[06/24/2022-09:26:39] [TRT] [W] The getMaxBatchSize() function should not be used with an engine built from a network created with NetworkDefinitionCreationFlag::kEXPLICIT_BATCH flag. This function will always return 1.
+[06/24/2022-09:26:39] [TRT] [I] [MemUsageChange] Init CUDA: CPU +0, GPU +0, now: CPU 2885, GPU 915 (MiB)
+[06/24/2022-09:26:39] [TRT] [I] Loaded engine size: 343 MiB
+[06/24/2022-09:26:39] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +330, now: CPU 0, GPU 330 (MiB)
+[06/24/2022-09:26:39] [TRT] [W] The getMaxBatchSize() function should not be used with an engine built from a network created with NetworkDefinitionCreationFlag::kEXPLICIT_BATCH flag. This function will always return 1.
+[06/24/2022-09:26:40] [TRT] [W] The getMaxBatchSize() function should not be used with an engine built from a network created with NetworkDefinitionCreationFlag::kEXPLICIT_BATCH flag. This function will always return 1.
+[06/24/2022-09:26:41] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +526, now: CPU 0, GPU 856 (MiB)
+[V] Loaded Module: polygraphy.util    | Path: ['/usr/local/lib/python3.8/dist-packages/polygraphy/util']
+[V] Model: vilbert_model_vision_logit.onnx
+[V] Loaded Module: polygraphy         | Version: 0.36.2 | Path: ['/usr/local/lib/python3.8/dist-packages/polygraphy']
+[V] Loaded Module: tensorrt           | Version: 8.4.1.5 | Path: ['/usr/local/lib/python3.8/dist-packages/tensorrt']
+[I] Will generate inference input data according to provided TensorMetadata: {question [shape=(16, 20)],
+     features [shape=(16, 100, 2048)],
+     spatials [shape=(16, 100, 5)],
+     segment_ids [shape=(16, 20)],
+     input_mask [shape=(16, 20)],
+     image_mask [shape=(16, 100)]}
+[I] onnxrt-runner-N0-06/24/22-09:10:57  | Activating and starting inference
+[I] Loading model: /TRT2022_VilBERT/models/vilbert_model_vision_logit.onnx
+[V] Loaded Module: onnx               | Version: 1.11.0 | Path: ['/usr/local/lib/python3.8/dist-packages/onnx']
+[V] Loaded Module: onnxruntime        | Version: 1.11.1 | Path: ['/usr/local/lib/python3.8/dist-packages/onnxruntime']
+[I] Creating ONNX-Runtime Inference Session with providers: ['CPUExecutionProvider']
+[V] Loaded Module: numpy              | Version: 1.22.3 | Path: ['/usr/local/lib/python3.8/dist-packages/numpy']
+[V] Loading inputs from data loader
+[V] Generating data using numpy seed: 1
+[V] Input tensor: question | Generating input data in range: [0, 1]
+[V] Input tensor: features | Generating input data in range: [0.0, 1.0]
+[V] Input tensor: spatials | Generating input data in range: [0.0, 1.0]
+[V] Input tensor: segment_ids | Generating input data in range: [0, 1]
+[V] Input tensor: input_mask | Generating input data in range: [0, 1]
+[V] Input tensor: image_mask | Generating input data in range: [0, 1]
+[I] onnxrt-runner-N0-06/24/22-09:10:57 
+    ---- Inference Input(s) ----
+    {question [dtype=int64, shape=(16, 20)],
+     features [dtype=float32, shape=(16, 100, 2048)],
+     spatials [dtype=float32, shape=(16, 100, 5)],
+     segment_ids [dtype=int64, shape=(16, 20)],
+     input_mask [dtype=int64, shape=(16, 20)],
+     image_mask [dtype=int64, shape=(16, 100)]}
+[V] Runner input metadata is: {question [dtype=int64, shape=('batch_size', 20)],
+     features [dtype=float32, shape=('batch_size', 100, 2048)],
+     spatials [dtype=float32, shape=('batch_size', 100, 5)],
+     segment_ids [dtype=int64, shape=('batch_size', 20)],
+     input_mask [dtype=int64, shape=('batch_size', 20)],
+     image_mask [dtype=int64, shape=('batch_size', 100)]}
+[I] onnxrt-runner-N0-06/24/22-09:10:57 
+    ---- Inference Output(s) ----
+    {1883 [dtype=float32, shape=(16, 100, 1024)]}
+[I] onnxrt-runner-N0-06/24/22-09:10:57  | Completed 1 iteration(s) in 1247 ms | Average inference time: 1247 ms.
+[I] trt-runner-N0-06/24/22-09:10:57     | Activating and starting inference
+[V]     Setting TensorRT Optimization Profiles
+[V]     Input tensor: question (dtype=DataType.INT32, shape=(-1, 20)) | Setting input tensor shapes to: (min=[1, 20], opt=[16, 20], max=[256, 20])
+[V]     Input tensor: features (dtype=DataType.FLOAT, shape=(-1, 100, 2048)) | Setting input tensor shapes to: (min=[1, 100, 2048], opt=[16, 100, 2048], max=[256, 100, 2048])
+[V]     Input tensor: spatials (dtype=DataType.FLOAT, shape=(-1, 100, 5)) | Setting input tensor shapes to: (min=[1, 100, 5], opt=[16, 100, 5], max=[256, 100, 5])
+[V]     Input tensor: segment_ids (dtype=DataType.INT32, shape=(-1, 20)) | Setting input tensor shapes to: (min=[1, 20], opt=[16, 20], max=[256, 20])
+[V]     Input tensor: input_mask (dtype=DataType.INT32, shape=(-1, 20)) | Setting input tensor shapes to: (min=[1, 20], opt=[16, 20], max=[256, 20])
+[V]     Input tensor: image_mask (dtype=DataType.INT32, shape=(-1, 100)) | Setting input tensor shapes to: (min=[1, 100], opt=[16, 100], max=[256, 100])
+[I]     Configuring with profiles: [Profile().add(question, min=[1, 20], opt=[16, 20], max=[256, 20]).add(features, min=[1, 100, 2048], opt=[16, 100, 2048], max=[256, 100, 2048]).add(spatials, min=[1, 100, 5], opt=[16, 100, 5], max=[256, 100, 5]).add(segment_ids, min=[1, 20], opt=[16, 20], max=[256, 20]).add(input_mask, min=[1, 20], opt=[16, 20], max=[256, 20]).add(image_mask, min=[1, 100], opt=[16, 100], max=[256, 100])]
+[I] Building engine with configuration:
+    Workspace            | 21474836480 bytes (20480.00 MiB)
+    Precision            | TF32: False, FP16: True, INT8: False, Obey Precision Constraints: False, Strict Types: False
+    Tactic Sources       | ['CUBLAS', 'CUBLAS_LT', 'CUDNN', 'EDGE_MASK_CONVOLUTIONS']
+    Safety Restricted    | False
+    Profiles             | 1 profile(s)
+[I] Finished engine building in 928.597 seconds
+[I] Saving engine to vilbert_model_vision_logit_fp16_poly_1.plan
+[W] Input tensor: question | Buffer dtype (int64) does not match expected input dtype (int32), attempting to cast. 
+[W] Input tensor: segment_ids | Buffer dtype (int64) does not match expected input dtype (int32), attempting to cast. 
+[W] Input tensor: input_mask | Buffer dtype (int64) does not match expected input dtype (int32), attempting to cast. 
+[W] Input tensor: image_mask | Buffer dtype (int64) does not match expected input dtype (int32), attempting to cast. 
+[I] trt-runner-N0-06/24/22-09:10:57    
+    ---- Inference Input(s) ----
+    {question [dtype=int32, shape=(16, 20)],
+     features [dtype=float32, shape=(16, 100, 2048)],
+     spatials [dtype=float32, shape=(16, 100, 5)],
+     segment_ids [dtype=int32, shape=(16, 20)],
+     input_mask [dtype=int32, shape=(16, 20)],
+     image_mask [dtype=int32, shape=(16, 100)]}
+[V] Runner input metadata is: {question [dtype=int32, shape=(-1, 20)],
+     features [dtype=float32, shape=(-1, 100, 2048)],
+     spatials [dtype=float32, shape=(-1, 100, 5)],
+     segment_ids [dtype=int32, shape=(-1, 20)],
+     input_mask [dtype=int32, shape=(-1, 20)],
+     image_mask [dtype=int32, shape=(-1, 100)]}
+[V] Setting binding: question (index: 0) to shape: (16, 20)
+[V] Setting binding: features (index: 1) to shape: (16, 100, 2048)
+[V] Setting binding: spatials (index: 2) to shape: (16, 100, 5)
+[V] Setting binding: segment_ids (index: 3) to shape: (16, 20)
+[V] Setting binding: input_mask (index: 4) to shape: (16, 20)
+[V] Setting binding: image_mask (index: 5) to shape: (16, 100)
+[I] trt-runner-N0-06/24/22-09:10:57    
+    ---- Inference Output(s) ----
+    {1883 [dtype=float32, shape=(16, 100, 1024)]}
+[I] trt-runner-N0-06/24/22-09:10:57     | Completed 1 iteration(s) in 6.034 ms | Average inference time: 6.034 ms.
+[V] Successfully ran: ['onnxrt-runner-N0-06/24/22-09:10:57', 'trt-runner-N0-06/24/22-09:10:57']
+[I] Accuracy Comparison | onnxrt-runner-N0-06/24/22-09:10:57 vs. trt-runner-N0-06/24/22-09:10:57
+[I]     Comparing Output: '1883' (dtype=float32, shape=(16, 100, 1024)) with '1883' (dtype=float32, shape=(16, 100, 1024)) | Tolerance: [abs=0.001, rel=0.001] | Checking elemwise error
+[I]         onnxrt-runner-N0-06/24/22-09:10:57: 1883 | Stats: mean=-0.030021, std-dev=0.46436, var=0.21563, median=-0.022428, min=-1.6906 at (2, 40, 30), max=1.8688 at (15, 61, 455), avg-magnitude=0.37185
+[I]             ---- Histogram ----
+                Bin Range        |  Num Elems | Visualization
+                (-1.69 , -1.33 ) |       6435 | 
+                (-1.33 , -0.979) |      30372 | ##
+                (-0.979, -0.623) |     129454 | ###########
+                (-0.623, -0.267) |     333862 | ############################
+                (-0.267, 0.0891) |     468472 | ########################################
+                (0.0891, 0.445 ) |     422706 | ####################################
+                (0.445 , 0.801 ) |     192508 | ################
+                (0.801 , 1.16  ) |      47306 | ####
+                (1.16  , 1.51  ) |       5876 | 
+                (1.51  , 1.87  ) |       1409 | 
+[I]         trt-runner-N0-06/24/22-09:10:57: 1883 | Stats: mean=-0.030001, std-dev=0.46434, var=0.21561, median=-0.022354, min=-1.6885 at (2, 40, 30), max=1.8672 at (15, 61, 455), avg-magnitude=0.37184
+[I]             ---- Histogram ----
+                Bin Range        |  Num Elems | Visualization
+                (-1.69 , -1.33 ) |       6428 | 
+                (-1.33 , -0.979) |      30279 | ##
+                (-0.979, -0.623) |     129491 | ###########
+                (-0.623, -0.267) |     334067 | ############################
+                (-0.267, 0.0891) |     468432 | ########################################
+                (0.0891, 0.445 ) |     422681 | ####################################
+                (0.445 , 0.801 ) |     192527 | ################
+                (0.801 , 1.16  ) |      47176 | ####
+                (1.16  , 1.51  ) |       5908 | 
+                (1.51  , 1.87  ) |       1411 | 
+[I]         Error Metrics: 1883
+[I]             Minimum Required Tolerance: elemwise error | [abs=0.0075183] OR [rel=3171.9] (requirements may be lower if both abs/rel tolerances are set)
+[I]             Absolute Difference | Stats: mean=0.00125, std-dev=0.0009777, var=9.5589e-07, median=0.0010375, min=0 at (1, 20, 860), max=0.0075183 at (8, 22, 859), avg-magnitude=0.00125
+[I]                 ---- Histogram ----
+                    Bin Range            |  Num Elems | Visualization
+                    (0       , 0.000752) |     616240 | ########################################
+                    (0.000752, 0.0015  ) |     481290 | ###############################
+                    (0.0015  , 0.00226 ) |     299261 | ###################
+                    (0.00226 , 0.00301 ) |     144324 | #########
+                    (0.00301 , 0.00376 ) |      61811 | ####
+                    (0.00376 , 0.00451 ) |      22920 | #
+                    (0.00451 , 0.00526 ) |       8350 | 
+                    (0.00526 , 0.00601 ) |       2797 | 
+                    (0.00601 , 0.00677 ) |       1131 | 
+                    (0.00677 , 0.00752 ) |        276 | 
+[I]             Relative Difference | Stats: mean=0.02799, std-dev=3.3323, var=11.104, median=0.003311, min=0 at (1, 20, 860), max=3171.9 at (15, 11, 388), avg-magnitude=0.02799
+[I]                 ---- Histogram ----
+                    Bin Range            |  Num Elems | Visualization
+                    (0       , 317     ) |    1638390 | ########################################
+                    (317     , 634     ) |          3 | 
+                    (634     , 952     ) |          3 | 
+                    (952     , 1.27e+03) |          2 | 
+                    (1.27e+03, 1.59e+03) |          0 | 
+                    (1.59e+03, 1.9e+03 ) |          1 | 
+                    (1.9e+03 , 2.22e+03) |          0 | 
+                    (2.22e+03, 2.54e+03) |          0 | 
+                    (2.54e+03, 2.85e+03) |          0 | 
+                    (2.85e+03, 3.17e+03) |          1 | 
+[E]         FAILED | Difference exceeds tolerance (rel=0.001, abs=0.001)
+[E]     FAILED | Mismatched outputs: ['1883']

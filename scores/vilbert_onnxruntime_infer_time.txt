@@ -1,12 +1,18 @@
 ==================================================
-batch_size: 8,	timePerInference: 11.3982,	batch_loss: 6.3815,	batch_score: 7.0000
+batch_size: 8,	timePerInference: 11.2957,	batch_loss: 6.3815,	batch_score: 7.0000
+False	0.007210731506347656	0.0025095674209296703
 ==================================================
-batch_size: 16,	timePerInference: 21.6888,	batch_loss: 8.9812,	batch_score: 13.0000
+batch_size: 16,	timePerInference: 21.5338,	batch_loss: 8.9812,	batch_score: 13.0000
+False	0.018035411834716797	0.004153834190219641
 ==================================================
-batch_size: 32,	timePerInference: 38.8250,	batch_loss: 7.7937,	batch_score: 27.0000
+batch_size: 32,	timePerInference: 38.7119,	batch_loss: 7.7937,	batch_score: 27.0000
+False	0.012038230895996094	0.00978794414550066
 ==================================================
-batch_size: 64,	timePerInference: 76.4640,	batch_loss: 7.1647,	batch_score: 49.0000
+batch_size: 64,	timePerInference: 76.1026,	batch_loss: 7.1647,	batch_score: 49.0000
+False	0.02029275894165039	0.023250598460435867
 ==================================================
-batch_size: 128,	timePerInference: 150.8038,	batch_loss: 6.3487,	batch_score: 99.0000
+batch_size: 128,	timePerInference: 150.0656,	batch_loss: 6.3487,	batch_score: 99.0000
+False	0.015980606898665428	0.9956742525100708
 ==================================================
-batch_size: 256,	timePerInference: 299.4956,	batch_loss: 6.1115,	batch_score: 203.0000
+batch_size: 256,	timePerInference: 298.3700,	batch_loss: 6.1115,	batch_score: 203.0000
+False	0.016801834106445312	0.9956742525100708

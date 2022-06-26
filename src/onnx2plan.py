@@ -30,8 +30,8 @@ import tensorrt as trt
 import argparse
 parser = argparse.ArgumentParser()
 
-parser.add_argument("--onnxFile", default="vilbert_model_vision_logit_layernorm.onnx", type=str)
-parser.add_argument("--trtFile", default="vilbert_model_vision_logit_layernorm_fp16.plan", type=str)
+parser.add_argument("--onnxFile", default="vilbert_model_vision_logit.onnx", type=str)
+parser.add_argument("--trtFile", default="vilbert_model_vision_logit_fp16.plan", type=str)
 parser.add_argument("--fp16", action="store_true")
 args = parser.parse_args()
 
@@ -62,8 +62,9 @@ def run():
     profile = builder.create_optimization_profile()
     config = builder.create_builder_config()
     config.max_workspace_size = 12 << 30
-    # if args.fp16:
-    #     config.flags = 1 << int(trt.BuilderFlag.FP16)
+    if args.fp16:
+        print('[FP16]')
+        config.flags = 1 << int(trt.BuilderFlag.FP16)
     #     config.flags = config.flags | 1<<int(trt.BuilderFlag.STRICT_TYPES)
 
     parser = trt.OnnxParser(network, logger)

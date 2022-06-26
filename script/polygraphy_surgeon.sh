@@ -7,4 +7,4 @@ polygraphy surgeon sanitize \
            --fold-constant \
            -o \
            vilbert_model_vision_logit_surgeon.onnx \
-           > result-surgeon.txt
+           > /TRT2022_VilBERT/logs/result-surgeon.txt
