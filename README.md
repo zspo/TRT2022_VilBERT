@@ -93,6 +93,14 @@ ViLBERT学习的是静态图像及其对应描述文本的联合表征，分别�
 ```shell
 sh script/gen_inputs.sh
 ```
+
+##### 跳过前两步，数据下载
+```shell
+百度网盘链接：`链接: https://pan.baidu.com/s/1a6Mb-Xrr6F5lO-N7_UKlGw  密码: ssjf`
+将`save_input_features_with_model_res`放至infer_batch_inputs目录下
+将`vilbert_model_vision_logit.onnx`、`pytorch_model_19.bin`放至models目录下
+```
+
 ##### 3. Pytorch推理评测
 ```shell
 sh script/torch_infer.sh
