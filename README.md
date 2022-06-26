@@ -11,9 +11,10 @@ ViLBERT模型的评测有Image Retrieval、VQA、VCR及RefCOCO+等任务，由�
 本项目首先基于评测任务对原始的`Pytorch`模型进行模型的精剪，去除对评测任务无关的层，并对运行流程进行简化。其次针对转化`Onnx`模型转化及`TensorRT`转化等问题进行原始模型层的替换及版本替换，从而顺利进行模型的转换。然后针对`TensorRT`尝试进行`FP16`精度的推理，虽然评测指标没有影响，但是输出的`logit`误差较大，因此使用`polygraphy`工具进行`onnxruntime`及`trt`的推理输出结果对比，在设置`mark all`参数有误后使用二分法进行层的结果对比，使用`strict type`显式控制某些层的计算精度。其次使用`onnx_graphsurgeon`对原始图进行`layernorm`的算子融合，并基于cuda编程编写了对应的`plugin`算子，在初赛中编写layernorm-plugin有一定的速度提升，但本模型推理时间会变长，使用`nsightsystems`工具进行耗时的评估观察，发现新增了部分新的更耗时的节点。除此之外也尝试了编写calibrator进行`INT8`的推理，最终未评测。
 
 ### 模型简介：
-
+ViLBERT在将BERT由单一的文本模态扩展为多模态双流模型。文本流和视觉流通过注意力Transformer层进行交互。这种结构在多模态下能分别对不同的模态进行处理，并提供模态之间的交互。如下图的transformer结构。
 ![](./fig/vilbert_transformer.png)
-
+ViLBERT学习的是静态图像及其对应描述文本的联合表征，分别对两种模态进行建模，然后通过一组attention-based的interaction将它们merge在一起。对每种模态都可使用不同深度的网络，并支持不同深度的跨模态交互。
+在Conceptual Captions数据集上进行pretrain时的训练目标有两个：(1)给定输入，预测被遮蔽的字和图像区域的语义；(2)预测图像和文本是否语义匹配。在预训练之后将模型四个4个vision-and-language 任务：(1)视觉问答；(2)视觉常识推理；(3)指示表达；(4)基于字幕的图像检索，并且都取得了stat-of-the-art的结果。ViLBERT在各个任务上都提升了2~10个百分点的精度。
 
 
 ### 运行环境：
@@ -135,16 +136,16 @@ sh script/tensorrt_infer.sh
 ![](./fig/onnx_1.png)
 
 ##### 使用polygraphy进行FP16精度下的层输出对比
+使用`polygraphy`工具进行`onnxruntime`及`trt`的推理输出结果对比，在设置`mark all`参数有误：`[TRT] [E] 2: [myelinBuilderUtils.cpp::operator()::425] Error Code 2: Internal Error ([HostToDeviceCopy] requires bool I/O but node can not be handled by Myelin. Operation is not supported.)`，可见本模型部分node不支持，有些层不支持转为输出节点，因此随后使用二分法进行层的结果对比。
 
 ##### plugin编写
-在初赛中，
-
+在初赛中，在学习了官方给出的layernorm plugin之后，去参考了TensorRT、FastTransformer、TurboTransformers及OneFlow等优化开源方案的Kernel编写，应用到自己的模型上也有一定的提升。但是在复赛本模型上进行layernorm算子融合后采用的plugin反而推理耗时近一步增加。
 
 ### 性能对比：
 
 具体可见`scores`下的各个结果文件
 
-##### 推理精度评测：
+#### 推理精度评测：
 推理精度评估分为模型的最终输出误差对比及评测任务的指标对比
 
 **评测任务指标对比如下：**
@@ -156,6 +157,7 @@ sh script/tensorrt_infer.sh
 | 64        | 7.16/49.00  | 7.16/49.00     | 7.16/49.00  | 7.25/48.00     |
 | 128       | 6.34/99.00  | 6.34/99.00     | 6.34/99.00  | 6.38/98.00     |
 | 256       | 6.11/203.00 | 6.11/203.00    | 6.11/203.00 | 6.13/202.00    |
+
 *注：表中数据为`batch_loss/batch_score`*
 
 
@@ -171,7 +173,7 @@ sh script/tensorrt_infer.sh
 
 如上所述，虽然模型的输出结果误差较大，但是对最终任务的评测指标几乎没有影响。
 
-##### 推理速度评测：
+#### 推理速度评测：
 
 用同一份输入评测数据：`infer_batch_inputs/save_input_features_with_model_res`
 首先进行模型的`warm up`，再进行模型的30次推理，时间取平均
@@ -194,5 +196,3 @@ sh script/tensorrt_infer.sh
 | 256       | **         | 428.90     | 360.32       | 299.14         | 213.98   | 105.69         |               |
 
 ![](./fig/inference.png)
-
-### 总结与不足:
