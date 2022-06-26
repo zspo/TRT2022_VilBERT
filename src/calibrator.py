@@ -19,13 +19,61 @@ import numpy as np
 from cuda import cudart
 import tensorrt as trt
 
+
+class InputFeature(object):
+    '''
+    A single set of features of data.
+    '''
+    def __init__(self, features, spatials, image_mask, question, target, input_mask, segment_ids, co_attention_mask, question_id, batch_size, vision_logit=None, loss=None, batch_score=None):
+        self.features           = features
+        self.spatials           = spatials
+        self.image_mask         = image_mask
+        self.question           = question
+        self.target             = target
+        self.input_mask         = input_mask
+        self.segment_ids        = segment_ids
+        self.co_attention_mask  = co_attention_mask
+        self.question_id        = question_id
+        self.batch_size         = batch_size
+        self.vision_logit       = vision_logit
+        self.batch_loss         = loss
+        self.batch_score        = batch_score
+
+
+class DataLoader:
+    def __init__(self, batch_size):
+        self.index = 0
+        self.batch_size = batch_size
+        self.length = 1
+
+        self.calibration_data = = {'question': question.numpy(),
+                                    'features': features.numpy(),
+                                    'spatials': spatials.numpy(),
+                                    'segment_ids': segment_ids.numpy(),
+                                    'input_mask': input_mask.numpy(),
+                                    'image_mask': image_mask.numpy(),
+                                    }
+
+    def reset(self):
+        self.index = 0
+
+    def next_batch(self):
+            return np.ascontiguousarray(self.calibration_data)
+        else:
+            return np.array([])
+            
+    def __len__(self):
+        return self.length
+
+    
+
 class MyCalibrator(trt.IInt8EntropyCalibrator2):
 
-    def __init__(self, batchInputs, batchSize, cacheFile):
+    def __init__(self, stream, batchSize, cacheFile):
         trt.IInt8EntropyCalibrator2.__init__(self)
-        self.batchInputs = batchInputs
+        self.stream = stream
         self.batchSize = batchSize
-        self.buffeSize = trt.volume(inputShape) * trt.float32.itemsize
+        self.buffeSize = trt.volume(self.stream.) * trt.float32.itemsize
         self.cacheFile = cacheFile
         _, self.dIn = cudart.cudaMalloc(self.buffeSize)
         self.count = 0
@@ -37,9 +85,8 @@ class MyCalibrator(trt.IInt8EntropyCalibrator2):
         return self.batchSize
 
     def get_batch(self, inputNodeName=None):  # do NOT change name
-        
-        data = np.ascontiguousarray(np.random.rand(np.prod(self.shape)).astype(np.float32).reshape(*self.shape)*200-100)
-        cudart.cudaMemcpy(self.dIn, data.ctypes.data, self.buffeSize, cudart.cudaMemcpyKind.cudaMemcpyHostToDevice)
+        batch_data = self.stream.next_batch()
+        cudart.cudaMemcpy(self.dIn, batch_data, self.buffeSize, cudart.cudaMemcpyKind.cudaMemcpyHostToDevice)
         return [int(self.dIn)]
         else:
             return None

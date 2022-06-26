@@ -8,7 +8,7 @@
 
 ### 项目摘要
 ViLBERT模型的评测有Image Retrieval、VQA、VCR及RefCOCO+等任务，由于任务数据的复杂性，因此本项目主要针对`RefCOCO+`任务进行评测。
-本项目首先基于评测任务对原始的`Pytorch`模型进行模型的精剪，去除对评测任务无关的层，并对运行流程进行简化。其次针对转化`Onnx`模型转化及`TensorRT`转化等问题进行原始模型层的替换及版本替换，从而顺利进行模型的转换。然后针对`TensorRT`尝试进行`FP16`精度的推理，虽然评测指标没有影响，但是输出的`logit`误差较大，因此使用`polygraphy`工具进行`onnxruntime`及`trt`的推理输出结果对比，在设置`mark all`参数有误后使用二分法进行层的结果对比，使用`strict type`显式控制某些层的计算精度。其次使用`onnx_graphsurgeon`对原始图进行`layernorm`的算子融合，并基于cuda编程编写了对应的`plugin`算子，在初赛中编写layernorm-plugin有一定的速度提升，但本模型推理时间会变长，使用`nsightsystems`工具进行耗时的评估观察，发现新增了部分新的更耗时的节点。除此之外也尝试了编写calibrator进行`INT8`的推理，最终未评测。
+本项目首先基于评测任务对原始的`Pytorch`模型进行模型的精剪，去除对评测任务无关的层，并对运行流程进行简化。其次针对转化`Onnx`模型转化及`TensorRT`转化等问题进行原始模型层的替换及版本替换，从而顺利进行模型的转换。接着进行基于`OnnxRuntime`的推理评测，速度相对于pytorch有一定的提升。然后针对`TensorRT`尝试进行`FP16`精度的推理，虽然评测指标没有影响，但是输出的`logit`误差较大，因此使用`polygraphy`工具进行`onnxruntime`及`trt`的推理输出结果对比，在设置`mark all`参数有误后使用二分法进行层的结果对比，使用`strict type`显式控制某些层的计算精度。其次使用`onnx_graphsurgeon`对原始图进行`layernorm`的算子融合，并基于cuda编程编写了对应的`plugin`算子，在初赛中编写layernorm-plugin有一定的速度提升，但本模型推理时间会变长，使用`nsightsystems`工具进行耗时的评估观察，发现新增了部分新的更耗时的节点。除此之外也尝试了编写calibrator进行`INT8`的推理，最终未评测。
 
 ### 模型简介：
 ViLBERT在将BERT由单一的文本模态扩展为多模态双流模型。文本流和视觉流通过注意力Transformer层进行交互。这种结构在多模态下能分别对不同的模态进行处理，并提供模态之间的交互。如下图的transformer结构。
@@ -137,6 +137,14 @@ sh script/tensorrt_infer.sh
 
 ##### 使用polygraphy进行FP16精度下的层输出对比
 使用`polygraphy`工具进行`onnxruntime`及`trt`的推理输出结果对比，在设置`mark all`参数有误：`[TRT] [E] 2: [myelinBuilderUtils.cpp::operator()::425] Error Code 2: Internal Error ([HostToDeviceCopy] requires bool I/O but node can not be handled by Myelin. Operation is not supported.)`，可见本模型部分node不支持，有些层不支持转为输出节点，因此随后使用二分法进行层的结果对比。
+
+##### nsightsystems耗时分析
+基于nsys进行原始模型推理的耗时分析：
+![](./fig/nsys_1.png)
+
+在进行layernorm算子融合加入plugin之后：
+![](./fig/nsys_2.png)
+可见原本已经优化到整体的`bert.embeddings`被拆分成多个小模块，这个应该是耗时增加的主要原因。
 
 ##### plugin编写
 在初赛中，在学习了官方给出的layernorm plugin之后，去参考了TensorRT、FastTransformer、TurboTransformers及OneFlow等优化开源方案的Kernel编写，应用到自己的模型上也有一定的提升。但是在复赛本模型上进行layernorm算子融合后采用的plugin反而推理耗时近一步增加。

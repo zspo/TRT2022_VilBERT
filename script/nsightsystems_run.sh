@@ -1,5 +1,7 @@
 #!/bin/bash
 
-cd /TRT2022_VilBERT/src
+cd /TRT2022_VilBERT/models
 
-nsys profile -o VilBertModel --stats=true python testVilBertTrt_v1.py > /TRT2022_VilBERT/logs/nsys_layernorm.txt
+nsys profile -o test_model trtexec --loadEngine=./vilbert_model_vision_logit.plan --warmUp=0 --duration=0 --iterations=50
+
+nsys profile -o test_model_ln trtexec --loadEngine=./vilbert_model_vision_logit_layernorm.plan --warmUp=0 --duration=0 --iterations=50 --plugins=../libs/LayerNormPlugin.so
