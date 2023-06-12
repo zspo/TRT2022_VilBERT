@@ -1,5 +1,7 @@
 # TRT2022_VilBERT
 
+赛题：https://tianchi.aliyun.com/competition/entrance/531953/rankingList
+
 本项目是基于ViLBERT进行TensorRT的部署。ViLBERT模型是为视觉-语言任务训练非任务专用的视觉语言表征的BERT融合模型，可以学习视觉内容和文本内容的与特定任务无关的联合表征。
 
 原始论文：[ViLBERT: Pretraining Task-Agnostic Visiolinguistic Representations for Vision-and-Language Tasks](https://arxiv.org/abs/1908.02265)
